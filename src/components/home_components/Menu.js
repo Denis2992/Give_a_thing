@@ -28,10 +28,12 @@ const useStyles = makeStyles((theme) => ({
         padding: "9px 10px",
         margin: "0 10px",
         cursor: "pointer",
+        fontSize: 14,
         transition: "all 0.2s ease-out",
         border: `0.75px solid transparent`,
         "&:hover" : {
-            border: `0.75px solid ${theme.palette.primary.main}`
+            border: `0.75px solid ${theme.palette.primary.main}`,
+            boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"
         }
     },
     menu: {
@@ -41,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     menuItem: {
         display: "flex",
         justifyContent: "center",
-        color: theme.palette.text.secondary,
+        color: theme.palette.text.primary,
         fontSize: theme.typography.fontSize,
         padding: "9px 20px",
         margin: "0 10px",
@@ -49,7 +51,8 @@ const useStyles = makeStyles((theme) => ({
         border: `0.75px solid transparent`,
         transition: "all 0.2s ease-out",
         "&:hover": {
-            borderColor: theme.palette.secondary.main
+            borderColor: theme.palette.secondary.main,
+            boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"
         }
     }
 }));

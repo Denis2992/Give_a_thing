@@ -23,7 +23,7 @@ export const theme = createTheme({
         fontFamily: 'Open Sans',
         fontSize: 18,
         body2: {
-            fontSize: 14,
+            fontSize: 16,
         },
         h5: {
             fontSize: '2rem',
@@ -35,6 +35,9 @@ export const theme = createTheme({
             fontSize: 32,
             lineHeight: 1.3,
             fontWeight: 300,
+        },
+        body1: {
+            fontSize: 18,
         },
     },
 });

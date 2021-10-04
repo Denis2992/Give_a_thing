@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     },
     img: {
         maxWidth: 1000,
-
         backgroundSize: "contain",
         marginLeft: "-350px"
     },
@@ -43,8 +42,12 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "space-around",
     },
     btn: {
+        marginTop: theme.spacing(3),
         maxWidth: 250,
         width: "100%",
+        "&:hover": {
+            boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"
+        }
     }
 }));
 
