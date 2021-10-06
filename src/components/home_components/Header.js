@@ -4,12 +4,14 @@ import {CardMedia, Box, Typography, Button} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import HomeImage from "../../assets/Home-Hero-Image.jpg"
 import Decoration from "../../assets/Decoration.svg"
+import {useHistory} from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
     boxComponent: {
         display: "flex",
         justifyContent: "space-between",
+        color: theme.palette.text.primary
     },
     img: {
         maxWidth: 1000,
@@ -26,10 +28,10 @@ const useStyles = makeStyles((theme) => ({
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center"
+        justifyContent: "center",
     },
     startHelpText: {
-        textAlign: "center"
+        textAlign: "center",
     },
     decoration: {
         width: 250,
@@ -53,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header () {
     const classes = useStyles();
+    const history = useHistory();
 
     return (
         <Box className={classes.boxComponent}>
@@ -75,6 +78,7 @@ export default function Header () {
                             className={classes.btn}
                             color="secondary"
                             variant="outlined"
+                            onClick={() => history.push("/logowanie")}
                         >
                             Oddaj<br/> rzeczy
                         </Button>
@@ -82,6 +86,7 @@ export default function Header () {
                             className={classes.btn}
                             color="secondary"
                             variant="outlined"
+                            onClick={() => history.push("/logowanie")}
                         >
                             Zorganizuj zbiórkę
                         </Button>
@@ -90,5 +95,5 @@ export default function Header () {
             </Box>
 
         </Box>
-    )
+    );
 }

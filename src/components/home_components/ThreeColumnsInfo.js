@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Typography, Container} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import Background from "../../assets/3-Columns-Background.png";
 
@@ -62,5 +62,5 @@ export default function ThreeColumnsInfo () {
                 </Typography>
             </Box>
         </Box>
-    )
+    );
 }

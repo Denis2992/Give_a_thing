@@ -5,7 +5,8 @@ import {
     Box
 } from "@mui/material";
 import { makeStyles } from '@mui/styles';
-
+import {useHistory} from "react-router-dom";
+import {Link} from "react-scroll";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -59,29 +60,59 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Menu () {
     const classes = useStyles();
+    const history = useHistory();
 
     return (
         <Box className={classes.container}>
             <List className={classes.logRegList}>
                 <ListItem
                     className={classes.logRegListItem}
+                    onClick={() => history.push("/logowanie")}
                 >
                     Zaloguj
                 </ListItem>
                 <ListItem
                     className={classes.logRegListItem}
                     style={{minWidth: 100}}
+                    onClick={() => history.push("/rejestracja")}
                 >
                     Załóż konto
                 </ListItem>
             </List>
             <List className={classes.menu}>
                 <ListItem className={classes.menuItem}>Start</ListItem>
-                <ListItem className={classes.menuItem} style={{minWidth:150}}>O co chodzi?</ListItem>
-                <ListItem className={classes.menuItem} style={{minWidth:90}}>O nas</ListItem>
-                <ListItem className={classes.menuItem} style={{minWidth:220}}>Fundacja i organizacje</ListItem>
-                <ListItem className={classes.menuItem}>Kontakt</ListItem>
+                <ListItem
+                    className={classes.menuItem}
+                    style={{minWidth:150}}
+                >
+                    <Link to="SimpleSteps" smooth={true}  duration={500}>
+                        O co chodzi?
+                    </Link>
+                </ListItem>
+                <ListItem
+                    className={classes.menuItem}
+                    style={{minWidth:90}}
+                >
+                    <Link to="AboutUs" smooth={true}  duration={600}>
+                        O nas
+                    </Link>
+                </ListItem>
+                <ListItem
+                    className={classes.menuItem}
+                    style={{minWidth:220}}
+                >
+                    <Link to="WhoWeHelp" smooth={true}  duration={800}>
+                        Fundacja i organizacje
+                    </Link>
+                </ListItem>
+                <ListItem className={classes.menuItem}
+                >
+                    <Link to="Contact" smooth={true}  duration={800}>
+                        Kontakt
+                    </Link>
+
+                </ListItem>
             </List>
         </Box>
-    )
+    );
 }

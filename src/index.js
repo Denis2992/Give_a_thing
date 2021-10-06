@@ -13,6 +13,7 @@ export const theme = createTheme({
         },
         secondary: {
             main: '#3C3C3C',
+            light: '#F0F1F1',
         },
         text: {
             primary: '#3C3C3C',
@@ -26,10 +27,11 @@ export const theme = createTheme({
             fontSize: 16,
         },
         h5: {
-            fontSize: '2rem',
+            fontSize: 28,
+            lineHeight: 1.6,
         },
         h4: {
-            fontSize: 38,
+            fontSize: 35,
         },
         button: {
             fontSize: 32,
@@ -37,6 +39,18 @@ export const theme = createTheme({
             fontWeight: 300,
         },
         body1: {
+            fontSize: 18,
+        },
+        h6: {
+            fontSize: 24,
+            fontWeight: 400,
+        },
+        subtitle1: {
+            fontSize: 26,
+            fontFamily: 'Merriweather',
+        },
+        subtitle2: {
+            fontFamily: 'Merriweather',
             fontSize: 18,
         },
     },
