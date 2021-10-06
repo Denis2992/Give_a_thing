@@ -53,6 +53,9 @@ export const theme = createTheme({
             fontFamily: 'Merriweather',
             fontSize: 18,
         },
+        caption: {
+            fontSize: 14,
+        },
     },
 });
 

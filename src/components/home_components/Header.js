@@ -2,8 +2,8 @@ import React from "react";
 import Menu from "./Menu";
 import {CardMedia, Box, Typography, Button} from "@mui/material";
 import {makeStyles} from "@mui/styles";
-import HomeImage from "../../assets/Home-Hero-Image.jpg"
-import Decoration from "../../assets/Decoration.svg"
+import HomeImage from "../../assets/Home-Hero-Image.jpg";
+import Decoration from "../../assets/Decoration.svg";
 import {useHistory} from "react-router-dom";
 
 

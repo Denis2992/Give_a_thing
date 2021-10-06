@@ -14,13 +14,14 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         alignSelf: "flex-end",
-        marginTop: theme.spacing(5),
-        marginRight: theme.spacing(12)
+        // marginTop: theme.spacing(2),
+        marginRight: theme.spacing(5)
     },
     logRegList: {
         display: "flex",
         alignSelf: "flex-end",
-        maxWidth: 250
+        maxWidth: 250,
+        marginRight: theme.spacing(2.5)
     },
     logRegListItem: {
         display: "flex",
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
     menu: {
         display: "flex",
-
+        alignSelf: "flex-end"
     },
     menuItem: {
         display: "flex",
@@ -73,7 +74,7 @@ export default function Menu () {
                 </ListItem>
                 <ListItem
                     className={classes.logRegListItem}
-                    style={{minWidth: 100}}
+                    style={{minWidth: 90}}
                     onClick={() => history.push("/rejestracja")}
                 >
                     Załóż konto
