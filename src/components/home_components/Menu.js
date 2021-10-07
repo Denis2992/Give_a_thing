@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
     List,
     ListItem,
-    Box
+    Box, Typography
 } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import {useHistory} from "react-router-dom";
 import {Link} from "react-scroll";
-
+import {CurrentUserContext} from "../../App";
+import getFirebase from "../firebase";
 
 const useStyles = makeStyles((theme) => ({
     container : {
@@ -20,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     logRegList: {
         display: "flex",
         alignSelf: "flex-end",
-        maxWidth: 250,
         marginRight: theme.spacing(2.5)
     },
     logRegListItem: {
@@ -35,8 +35,17 @@ const useStyles = makeStyles((theme) => ({
         border: `0.75px solid transparent`,
         "&:hover" : {
             border: `0.75px solid ${theme.palette.primary.main}`,
-            boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"
+            boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+            color: theme.palette.primary.contrastText,
         }
+    },
+    userName: {
+        color: theme.palette.primary.contrastText,
+        fontSize: 14,
+        minWidth: 200,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
     },
     menu: {
         display: "flex",
@@ -62,26 +71,66 @@ const useStyles = makeStyles((theme) => ({
 export default function Menu () {
     const classes = useStyles();
     const history = useHistory();
+    const {currentUser, setCurrentUser} = useContext(CurrentUserContext);
+    const firebaseInstance = getFirebase();
+
+    const signOut = async () => {
+        try {
+            if (firebaseInstance) {
+                await firebaseInstance.auth().signOut();
+            }
+        } catch (error) {
+            console.log("error", error);
+        }
+
+        setCurrentUser(null);
+        history.push("/wylogowano");
+    };
 
     return (
         <Box className={classes.container}>
             <List className={classes.logRegList}>
-                <ListItem
-                    className={classes.logRegListItem}
-                    onClick={() => history.push("/logowanie")}
-                >
-                    Zaloguj
-                </ListItem>
-                <ListItem
-                    className={classes.logRegListItem}
-                    style={{minWidth: 90}}
-                    onClick={() => history.push("/rejestracja")}
-                >
-                    Załóż konto
-                </ListItem>
+                {currentUser ? (
+                   <>
+                       <Typography className={classes.userName}>Cześć {currentUser}</Typography>
+                       <ListItem
+                           className={classes.logRegListItem}
+                           style={{minWidth: 100}}
+                       >
+                           Oddaj rzeczy
+                       </ListItem>
+                       <ListItem
+                           className={classes.logRegListItem}
+                           onClick={() => signOut()}
+                       >
+                           Wyloguj
+                       </ListItem>
+                   </>
+                ) : (
+                    <>
+                        <ListItem
+                            className={classes.logRegListItem}
+                            onClick={() => history.push("/logowanie")}
+                        >
+                            Zaloguj
+                        </ListItem>
+                        <ListItem
+                            className={classes.logRegListItem}
+                            style={{minWidth: 90}}
+                            onClick={() => history.push("/rejestracja")}
+                        >
+                            Załóż konto
+                        </ListItem>
+                    </>
+                )}
             </List>
             <List className={classes.menu}>
-                <ListItem className={classes.menuItem}>Start</ListItem>
+                <ListItem
+                    className={classes.menuItem}
+                    onClick={() => history.push("/")}
+                >
+                    Start
+                </ListItem>
                 <ListItem
                     className={classes.menuItem}
                     style={{minWidth:150}}

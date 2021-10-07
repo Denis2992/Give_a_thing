@@ -8,7 +8,6 @@ import {makeStyles} from "@mui/styles";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import useInput from "./useInput";
 import CustomButton from "./CustomButton";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,20 +35,23 @@ const useStyles = makeStyles((theme) => ({
     decoration: {
         width: 250,
         height: 30,
-        margin: theme.spacing(4, 0)
+        margin: theme.spacing(4, 0, 2, 0)
     },
     singleLineInput: {
         maxWidth: 250,
-        margin: theme.spacing(0, 2, 5, 2)
+        height: 80,
+        margin: theme.spacing(0, 2, 2, 2),
+
     },
     multilineInput: {
         maxWidth: 460,
         width: "100%",
+        height: 150,
         margin: theme.spacing(0, 2)
     },
     btn: {
         alignSelf: "flex-end",
-        margin: theme.spacing(5, 1.5, 2, 2)
+        margin: theme.spacing(3, 1.5, 2, 2)
     },
     footer: {
         backgroundColor: "rgba(255, 255, 255, 0.7)",
@@ -65,17 +67,25 @@ const useStyles = makeStyles((theme) => ({
     sentMsg: {
         color: theme.palette.success.light,
         fontWeight: 600,
+        height: 55,
         textAlign: "center",
-        marginBottom: theme.spacing(2)
+        marginBottom: theme.spacing(1),
     }
 }))
 
 export default function Contact () {
     const classes = useStyles();
-    const name = useInput("");
-    const email = useInput("");
-    const message = useInput("");
-    const [sentMsg, setSentMsg] = useState(true);
+    const [messageData, setMessageData] = useState({
+        name: "",
+        email: "",
+        message: ""
+    });
+    const [messageStatus, setMessageStatus] = useState(false);
+
+    const handleValueChange = (event) => {
+        const {name, value} = event.target;
+        setMessageData(prevState => ({...prevState, [name]: value}));
+    };
 
     const schema = yup.object({
         name: yup
@@ -92,13 +102,22 @@ export default function Contact () {
             .string()
             .max(120, "Maksymalna długość 120 znaków")
             .required("Pole nie może być puste")
-    });
+    }).required();
 
     const {  control, register, formState: { errors }, handleSubmit } = useForm({
         resolver: yupResolver(schema)
     });
     const onSubmit = data => {
         console.log(data);
+        setMessageData({
+            name: "",
+            email: "",
+            message: ""
+        });
+        setMessageStatus(true);
+        setTimeout(() => {
+            setMessageStatus(false)
+        }, 2000);
     };
 
     return (
@@ -108,19 +127,21 @@ export default function Contact () {
                 <Box className={classes.dataBox}>
                     <Typography variant="h4">Skontaktuj się z nami</Typography>
                     <CardMedia component="img" image={Decoration} className={classes.decoration}/>
-                    {sentMsg ? (
+                    {messageStatus ? (
                         <Typography
                             className={classes.sentMsg}
                         >
                             Wiadomość została wysłana!<br/>Wkrótce się skontaktujemy
                         </Typography>
-                    ) : null}
+                    ) : (
+                        <div className={classes.sentMsg}/>
+                    )}
                     <form
                         style={{display: "flex", flexDirection: "column"}}
                         onSubmit={handleSubmit(onSubmit)}
                     >
                         <div>
-                            {!errors.name ? (
+                            {!errors?.name ? (
                                 <Controller
                                     name="name"
                                     id="name"
@@ -133,7 +154,8 @@ export default function Contact () {
                                             className={classes.singleLineInput}
                                             color="secondary"
                                             {...register("name")}
-                                            {...name}
+                                            value={messageData.name}
+                                            onChange={handleValueChange}
                                         />
                                     )}
                                 />
@@ -151,12 +173,13 @@ export default function Contact () {
                                             helperText={errors?.name?.message}
                                             className={classes.singleLineInput}
                                             {...register("name")}
-                                            {...name}
+                                            value={messageData.name}
+                                            onChange={handleValueChange}
                                         />
                                     )}
                                 />
                             )}
-                            {!errors.email ? (
+                            {!errors?.email ? (
                                 <Controller
                                     name="email"
                                     id="email"
@@ -166,10 +189,11 @@ export default function Contact () {
                                             label="Wpisz swój email"
                                             variant="standard"
                                             placeholder="abc@xyz.pl"
-                                            className={classes.singleLineInput}{...name}
+                                            className={classes.singleLineInput}
                                             color="secondary"
                                             {...register("email")}
-                                            {...email}
+                                            value={messageData.email}
+                                            onChange={handleValueChange}
                                         />
                                     )}
                                 />
@@ -187,13 +211,14 @@ export default function Contact () {
                                             className={classes.singleLineInput}
                                             helperText={errors?.email?.message}
                                             {...register("email")}
-                                            {...email}
+                                            value={messageData.email}
+                                            onChange={handleValueChange}
                                         />
                                     )}
                                 />
                             )}
                         </div>
-                        {!errors.message ? (
+                        {!errors?.message ? (
                             <Controller
                                 name="message"
                                 id="message"
@@ -208,7 +233,8 @@ export default function Contact () {
                                         color="secondary"
                                         className={classes.multilineInput}
                                         {...register("message")}
-                                        {...message}
+                                        value={messageData.message}
+                                        onChange={handleValueChange}
                                     />
                                 )}
                             />
@@ -228,7 +254,8 @@ export default function Contact () {
                                         helperText={errors?.message?.message}
                                         className={classes.multilineInput}
                                         {...register("message")}
-                                        {...message}
+                                        value={messageData.message}
+                                        onChange={handleValueChange}
                                     />
                                 )}
                             />

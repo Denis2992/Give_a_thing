@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.primary
     },
     img: {
-        maxWidth: 1000,
+        maxHeight: 750,
+        width: "100%",
         backgroundSize: "contain",
         marginLeft: "-350px"
     },
