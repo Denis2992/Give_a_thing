@@ -79,12 +79,11 @@ export default function Menu () {
             if (firebaseInstance) {
                 await firebaseInstance.auth().signOut();
             }
+            setCurrentUser(null);
+            history.push("/wylogowano");
         } catch (error) {
             console.log("error", error);
         }
-
-        setCurrentUser(null);
-        history.push("/wylogowano");
     };
 
     return (

@@ -9,6 +9,8 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import CustomButton from "./CustomButton";
+import useInput from "./useInput";
+import getFirebase from "../firebase";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
@@ -80,7 +82,11 @@ export default function Contact () {
         email: "",
         message: ""
     });
+    // const name = useInput("");
+    // const email = useInput("");
+    // const message = useInput("");
     const [messageStatus, setMessageStatus] = useState(false);
+    const firebase = getFirebase();
 
     const handleValueChange = (event) => {
         const {name, value} = event.target;
@@ -107,17 +113,42 @@ export default function Contact () {
     const {  control, register, formState: { errors }, handleSubmit } = useForm({
         resolver: yupResolver(schema)
     });
-    const onSubmit = data => {
-        console.log(data);
-        setMessageData({
-            name: "",
-            email: "",
-            message: ""
-        });
-        setMessageStatus(true);
-        setTimeout(() => {
-            setMessageStatus(false)
-        }, 2000);
+
+    const submitForm = async() => {
+        if (firebase) {
+            try {
+                const db = firebase.firestore();
+                const docRef = db.collection("messages").doc();
+
+                await docRef.set(
+                    {
+                        // name: name.value,
+                        // email: email.value,
+                        // message: message.value
+                        name: messageData.name,
+                        email: messageData.email,
+                        message: messageData.message
+                    },
+                    {merge: true}
+                );
+                setMessageStatus(true);
+                setTimeout(() => {
+                    setMessageStatus(false)
+                }, 2000);
+                console.log("Successfully added to Firestore!");
+                // name.value = "";
+                // email.value = "";
+                // message.value = "";
+                setMessageData({
+                    name: "",
+                    email: "",
+                    message: ""
+                });
+            }catch (error) {
+                console.log("error", error);
+            }
+        }
+
     };
 
     return (
@@ -138,7 +169,7 @@ export default function Contact () {
                     )}
                     <form
                         style={{display: "flex", flexDirection: "column"}}
-                        onSubmit={handleSubmit(onSubmit)}
+                        onSubmit={handleSubmit(submitForm)}
                     >
                         <div>
                             {!errors?.name ? (
@@ -156,6 +187,7 @@ export default function Contact () {
                                             {...register("name")}
                                             value={messageData.name}
                                             onChange={handleValueChange}
+                                            /*{...name}*/
                                         />
                                     )}
                                 />
@@ -175,6 +207,7 @@ export default function Contact () {
                                             {...register("name")}
                                             value={messageData.name}
                                             onChange={handleValueChange}
+                                            /*{...name}*/
                                         />
                                     )}
                                 />
@@ -194,6 +227,7 @@ export default function Contact () {
                                             {...register("email")}
                                             value={messageData.email}
                                             onChange={handleValueChange}
+                                            /*{...email}*/
                                         />
                                     )}
                                 />
@@ -213,6 +247,7 @@ export default function Contact () {
                                             {...register("email")}
                                             value={messageData.email}
                                             onChange={handleValueChange}
+                                            /*{...email}*/
                                         />
                                     )}
                                 />
@@ -235,6 +270,7 @@ export default function Contact () {
                                         {...register("message")}
                                         value={messageData.message}
                                         onChange={handleValueChange}
+                                        /*{...message}*/
                                     />
                                 )}
                             />
@@ -256,6 +292,7 @@ export default function Contact () {
                                         {...register("message")}
                                         value={messageData.message}
                                         onChange={handleValueChange}
+                                        /*{...message}*/
                                     />
                                 )}
                             />
