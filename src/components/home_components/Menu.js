@@ -15,19 +15,17 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         alignSelf: "flex-end",
-        // marginTop: theme.spacing(2),
-        marginRight: theme.spacing(5)
+        marginRight: theme.spacing(5),
     },
     logRegList: {
         display: "flex",
         alignSelf: "flex-end",
-        marginRight: theme.spacing(2.5)
     },
     logRegListItem: {
         display: "flex",
         justifyContent: "center",
+        textAlign: "center",
         color: theme.palette.text.secondary,
-        padding: "9px 10px",
         margin: "0 10px",
         cursor: "pointer",
         fontSize: 14,
@@ -49,14 +47,14 @@ const useStyles = makeStyles((theme) => ({
     },
     menu: {
         display: "flex",
-        alignSelf: "flex-end"
+        alignSelf: "flex-end",
+        maxWidth: 750
     },
     menuItem: {
         display: "flex",
         justifyContent: "center",
         color: theme.palette.text.primary,
         fontSize: theme.typography.fontSize,
-        padding: "9px 20px",
         margin: "0 10px",
         cursor: "pointer",
         border: `0.75px solid transparent`,
@@ -94,7 +92,7 @@ export default function Menu () {
                        <Typography className={classes.userName}>Cześć {currentUser}</Typography>
                        <ListItem
                            className={classes.logRegListItem}
-                           style={{minWidth: 100}}
+                           style={{width: 93}}
                        >
                            Oddaj rzeczy
                        </ListItem>
@@ -115,7 +113,7 @@ export default function Menu () {
                         </ListItem>
                         <ListItem
                             className={classes.logRegListItem}
-                            style={{minWidth: 90}}
+                            style={{minWidth: 102}}
                             onClick={() => history.push("/rejestracja")}
                         >
                             Załóż konto
@@ -132,25 +130,23 @@ export default function Menu () {
                 </ListItem>
                 <ListItem
                     className={classes.menuItem}
-                    style={{minWidth:150}}
                 >
-                    <Link to="SimpleSteps" smooth={true}  duration={500}>
+                    <Link to="SimpleSteps" smooth={true}  duration={500} style={{width: 95}}>
                         O co chodzi?
                     </Link>
                 </ListItem>
                 <ListItem
                     className={classes.menuItem}
-                    style={{minWidth:90}}
+
                 >
-                    <Link to="AboutUs" smooth={true}  duration={600}>
+                    <Link to="AboutUs" smooth={true}  duration={600} style={{width: 45}}>
                         O nas
                     </Link>
                 </ListItem>
                 <ListItem
                     className={classes.menuItem}
-                    style={{minWidth:220}}
                 >
-                    <Link to="WhoWeHelp" smooth={true}  duration={800}>
+                    <Link to="WhoWeHelp" smooth={true}  duration={800} style={{width: 165}}>
                         Fundacja i organizacje
                     </Link>
                 </ListItem>

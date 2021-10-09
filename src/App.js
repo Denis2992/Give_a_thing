@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Registration from "./components/Registration";
 import getFirebase from "./components/firebase";
 import LogOut from "./components/LogOut";
+import GiveThings from "./components/GiveThings";
 
 export const CurrentUserContext = createContext("");
 
@@ -101,6 +102,7 @@ function App() {
                   <Route path={"/logowanie"} component={Login} />
                   <Route path={"/rejestracja"} component={Registration} />
                   <Route path={"/wylogowano"} component={LogOut} />
+                  <Route path={"/oddaj-rzeczy"} component={GiveThings}/>
               </Switch>
           </HashRouter>
       </CurrentUserContext.Provider>

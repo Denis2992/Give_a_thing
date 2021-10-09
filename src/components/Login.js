@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
 
     },
     decoration: {
-        width: 250,
-        height: 30,
+        maxWidth: 250,
+        maxHeight: 30,
         margin: theme.spacing(4, 0, 6, 0)
     },
     form: {
@@ -47,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
     input: {
         maxWidth: 250,
         height: 75,
-        margin: theme.spacing(1),
     },
     errorBox: {
         height: 50,

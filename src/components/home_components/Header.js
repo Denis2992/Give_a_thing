@@ -5,13 +5,14 @@ import {makeStyles} from "@mui/styles";
 import HomeImage from "../../assets/Home-Hero-Image.jpg";
 import Decoration from "../../assets/Decoration.svg";
 import {useHistory} from "react-router-dom";
+import CustomCardMedia from "./CustomCardMedia";
 
 
 const useStyles = makeStyles((theme) => ({
     boxComponent: {
         display: "flex",
         justifyContent: "space-between",
-        color: theme.palette.text.primary
+        color: theme.palette.text.primary,
     },
     img: {
         maxHeight: 750,
@@ -69,7 +70,7 @@ export default function Header () {
                 <Menu />
                 <Box className={classes.startHelp}>
                     <Typography variant="h4" className={classes.startHelpText}>Zacznij pomagać!<br/> Oddaj niechciane rzeczy w zaufane ręce</Typography>
-                    <CardMedia
+                    <CustomCardMedia
                         component="img"
                         image={Decoration}
                         className={classes.decoration}

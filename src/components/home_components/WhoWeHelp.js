@@ -1,8 +1,9 @@
 import React, {useContext, useState} from "react";
-import {Box, CardMedia, List, ListItem, Pagination, Typography} from "@mui/material";
+import {Box, Divider, List, ListItem, Pagination, Typography} from "@mui/material";
 import Decoration from "../../assets/Decoration.svg";
 import {makeStyles} from "@mui/styles";
 import {CurrentUserContext} from "../../App";
+import CustomCardMedia from "./CustomCardMedia";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
     listItem: {
         fontSize: 24,
         display: "flex",
-        justifyContent: "center",
-        textAlign: "center",
+        justifyContent: "center !important",
+        textAlign: "center !important",
         border: `0.75px solid transparent`,
         maxWidth: 210,
         maxHeight: 70,
@@ -42,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
     listItemSelected: {
         fontSize: 24,
         display: "flex",
-        justifyContent: "center",
-        textAlign: "center",
+        justifyContent: "center !important",
+        textAlign: "center !important",
         border: `0.75px solid transparent`,
         maxWidth: 210,
         maxHeight: 70,
@@ -91,7 +92,7 @@ export default function WhoWeHelp () {
     return (
         <Box className={classes.mainBox} name="WhoWeHelp">
             <Typography variant="h4">Komu pomagamy?</Typography>
-            <CardMedia component="img" image={Decoration} className={classes.image}/>
+            <CustomCardMedia component="img" image={Decoration} className={classes.image}/>
             <List className={classes.list}>
                 {category.foundations ? (
                     <ListItem className={classes.listItemSelected}>Fundacjom</ListItem>
@@ -152,65 +153,76 @@ export default function WhoWeHelp () {
                     <Box style={{maxWidth: 1200, width: "100%"}}>
                         {page === 1 ? (
                             foundations?.map((el, i) => i < 3 ? (
-                                <Box key={i} className={classes.itemBox}>
-                                    <Box>
-                                        <Typography variant="subtitle1">Fundacja {el.name}</Typography>
+                                <>
+                                    <Box key={i} className={classes.itemBox}>
+                                        <Box>
+                                            <Typography variant="subtitle1">Fundacja {el.name}</Typography>
+                                            <Typography
+                                                variant="subtitle2"
+                                                style={{fontStyle: "italic"}}
+                                            >
+                                                Cel i misja: {el.mission}
+                                            </Typography>
+                                        </Box>
                                         <Typography
                                             variant="subtitle2"
-                                            style={{fontStyle: "italic"}}
+                                            style={{marginRight: "2rem", fontStyle: "italic"}}
                                         >
-                                            Cel i misja: {el.mission}
+                                            {el.help}
                                         </Typography>
+
                                     </Box>
-                                    <Typography
-                                        variant="subtitle2"
-                                        style={{marginRight: "2rem", fontStyle: "italic"}}
-                                    >
-                                        {el.help}
-                                    </Typography>
-                                </Box>
+                                    {i !== 2 ? (<Divider />) : null}
+                                </>
                             ) : null)
                         ) : null}
                         {page === 2 ? (
                             foundations?.map((el, i) => i > 2 && i < 6 ? (
-                                <Box key={i} className={classes.itemBox}>
-                                    <Box>
-                                        <Typography variant="subtitle1">Fundacja {el.name}</Typography>
+                                <>
+                                    <Box key={i} className={classes.itemBox}>
+                                        <Box>
+                                            <Typography variant="subtitle1">Fundacja {el.name}</Typography>
+                                            <Typography
+                                                variant="subtitle2"
+                                                style={{fontStyle: "italic"}}
+                                            >
+                                                Cel i misja: {el.mission}
+                                            </Typography>
+                                        </Box>
                                         <Typography
                                             variant="subtitle2"
-                                            style={{fontStyle: "italic"}}
+                                            style={{marginRight: "2rem", fontStyle: "italic"}}
                                         >
-                                            Cel i misja: {el.mission}
+                                            {el.help}
                                         </Typography>
                                     </Box>
-                                    <Typography
-                                        variant="subtitle2"
-                                        style={{marginRight: "2rem", fontStyle: "italic"}}
-                                    >
-                                        {el.help}
-                                    </Typography>
-                                </Box>
+                                    {i !== 5 ? (<Divider />) : null}
+                                </>
+
                             ) : null)
                         ) : null}
                         {page === 3 ? (
                             foundations?.map((el, i) => i > 5 && i < 9 ? (
-                                <Box key={i} className={classes.itemBox}>
-                                    <Box>
-                                        <Typography variant="subtitle1">Fundacja {el.name}</Typography>
+                                <>
+                                    <Box key={i} className={classes.itemBox}>
+                                        <Box>
+                                            <Typography variant="subtitle1">Fundacja {el.name}</Typography>
+                                            <Typography
+                                                variant="subtitle2"
+                                                style={{fontStyle: "italic"}}
+                                            >
+                                                Cel i misja: {el.mission}
+                                            </Typography>
+                                        </Box>
                                         <Typography
                                             variant="subtitle2"
-                                            style={{fontStyle: "italic"}}
+                                            style={{marginRight: "2rem", fontStyle: "italic"}}
                                         >
-                                            Cel i misja: {el.mission}
+                                            {el.help}
                                         </Typography>
                                     </Box>
-                                    <Typography
-                                        variant="subtitle2"
-                                        style={{marginRight: "2rem", fontStyle: "italic"}}
-                                    >
-                                        {el.help}
-                                    </Typography>
-                                </Box>
+                                    {i !== 8 ? (<Divider />) : null}
+                                </>
                             ) : null)
                         ) : null}
                     </Box>
@@ -235,44 +247,50 @@ export default function WhoWeHelp () {
                     <Box style={{maxWidth: 1200, width: "100%"}}>
                         {page === 1 ? (
                             organizations?.map((el, i) => i < 3 ? (
-                                <Box key={i} className={classes.itemBox}>
-                                    <Box>
-                                        <Typography variant="subtitle1">Organizacja {el.name}</Typography>
+                                <>
+                                    <Box key={i} className={classes.itemBox}>
+                                        <Box>
+                                            <Typography variant="subtitle1">Organizacja {el.name}</Typography>
+                                            <Typography
+                                                variant="subtitle2"
+                                                style={{fontStyle: "italic"}}
+                                            >
+                                                Cel i misja: {el.mission}
+                                            </Typography>
+                                        </Box>
                                         <Typography
                                             variant="subtitle2"
-                                            style={{fontStyle: "italic"}}
+                                            style={{marginRight: "2rem", fontStyle: "italic"}}
                                         >
-                                            Cel i misja: {el.mission}
+                                            {el.help}
                                         </Typography>
                                     </Box>
-                                    <Typography
-                                        variant="subtitle2"
-                                        style={{marginRight: "2rem", fontStyle: "italic"}}
-                                    >
-                                        {el.help}
-                                    </Typography>
-                                </Box>
+                                    {i !== 2 ? (<Divider />) : null}
+                                </>
                             ) : null)
                         ) : null}
                         {page === 2 ? (
                             organizations?.map((el, i) => i > 2 && i < 6 ? (
-                                <Box key={i} className={classes.itemBox}>
-                                    <Box>
-                                        <Typography variant="subtitle1">Organizacja {el.name}</Typography>
+                                <>
+                                    <Box key={i} className={classes.itemBox}>
+                                        <Box>
+                                            <Typography variant="subtitle1">Organizacja {el.name}</Typography>
+                                            <Typography
+                                                variant="subtitle2"
+                                                style={{fontStyle: "italic"}}
+                                            >
+                                                Cel i misja: {el.mission}
+                                            </Typography>
+                                        </Box>
                                         <Typography
                                             variant="subtitle2"
-                                            style={{fontStyle: "italic"}}
+                                            style={{marginRight: "2rem", fontStyle: "italic"}}
                                         >
-                                            Cel i misja: {el.mission}
+                                            {el.help}
                                         </Typography>
                                     </Box>
-                                    <Typography
-                                        variant="subtitle2"
-                                        style={{marginRight: "2rem", fontStyle: "italic"}}
-                                    >
-                                        {el.help}
-                                    </Typography>
-                                </Box>
+                                    {i !== 5 ? (<Divider />) : null}
+                                </>
                             ) : null)
                         ) : null}
                     </Box>
@@ -296,23 +314,26 @@ export default function WhoWeHelp () {
                     </Typography>
                     <Box style={{maxWidth: 1200, width: "100%", marginBottom: 32}}>
                         {local?.map((el, i) => (
-                            <Box key={i} className={classes.itemBox}>
-                                <Box>
-                                    <Typography variant="subtitle1">Organizacja {el.name}</Typography>
+                            <>
+                                <Box key={i} className={classes.itemBox}>
+                                    <Box>
+                                        <Typography variant="subtitle1">Organizacja {el.name}</Typography>
+                                        <Typography
+                                            variant="subtitle2"
+                                            style={{fontStyle: "italic"}}
+                                        >
+                                            Cel i misja: {el.mission}
+                                        </Typography>
+                                    </Box>
                                     <Typography
                                         variant="subtitle2"
-                                        style={{fontStyle: "italic"}}
+                                        style={{marginRight: "2rem", fontStyle: "italic"}}
                                     >
-                                        Cel i misja: {el.mission}
+                                        {el.help}
                                     </Typography>
                                 </Box>
-                                <Typography
-                                    variant="subtitle2"
-                                    style={{marginRight: "2rem", fontStyle: "italic"}}
-                                >
-                                    {el.help}
-                                </Typography>
-                            </Box>
+                                {i !== 2 ? (<Divider />) : null}
+                            </>
                         ))}
                     </Box>
                 </>

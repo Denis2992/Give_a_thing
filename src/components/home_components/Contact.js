@@ -11,6 +11,8 @@ import * as yup from "yup";
 import CustomButton from "./CustomButton";
 import useInput from "./useInput";
 import getFirebase from "../firebase";
+import CustomCardMedia from "./CustomCardMedia";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
@@ -77,21 +79,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Contact () {
     const classes = useStyles();
-    const [messageData, setMessageData] = useState({
-        name: "",
-        email: "",
-        message: ""
-    });
-    // const name = useInput("");
-    // const email = useInput("");
-    // const message = useInput("");
+    const [name, resetName] = useInput("");
+    const [email, resetEmail] = useInput("");
+    const [message, resetMessage] = useInput("");
     const [messageStatus, setMessageStatus] = useState(false);
     const firebase = getFirebase();
-
-    const handleValueChange = (event) => {
-        const {name, value} = event.target;
-        setMessageData(prevState => ({...prevState, [name]: value}));
-    };
+    const recaptchaRef = React.createRef();
 
     const schema = yup.object({
         name: yup
@@ -115,6 +108,8 @@ export default function Contact () {
     });
 
     const submitForm = async() => {
+        await recaptchaRef.current.executeAsync();
+
         if (firebase) {
             try {
                 const db = firebase.firestore();
@@ -122,12 +117,9 @@ export default function Contact () {
 
                 await docRef.set(
                     {
-                        // name: name.value,
-                        // email: email.value,
-                        // message: message.value
-                        name: messageData.name,
-                        email: messageData.email,
-                        message: messageData.message
+                        name: name.value,
+                        email: email.value,
+                        message: message.value
                     },
                     {merge: true}
                 );
@@ -136,19 +128,13 @@ export default function Contact () {
                     setMessageStatus(false)
                 }, 2000);
                 console.log("Successfully added to Firestore!");
-                // name.value = "";
-                // email.value = "";
-                // message.value = "";
-                setMessageData({
-                    name: "",
-                    email: "",
-                    message: ""
-                });
+                resetName();
+                resetEmail();
+                resetMessage();
             }catch (error) {
                 console.log("error", error);
             }
         }
-
     };
 
     return (
@@ -157,7 +143,7 @@ export default function Contact () {
                 <div style={{width: 900, height: "100%"}} />
                 <Box className={classes.dataBox}>
                     <Typography variant="h4">Skontaktuj się z nami</Typography>
-                    <CardMedia component="img" image={Decoration} className={classes.decoration}/>
+                    <CustomCardMedia component="img" image={Decoration} className={classes.decoration}/>
                     {messageStatus ? (
                         <Typography
                             className={classes.sentMsg}
@@ -185,9 +171,7 @@ export default function Contact () {
                                             className={classes.singleLineInput}
                                             color="secondary"
                                             {...register("name")}
-                                            value={messageData.name}
-                                            onChange={handleValueChange}
-                                            /*{...name}*/
+                                            {...name}
                                         />
                                     )}
                                 />
@@ -205,9 +189,7 @@ export default function Contact () {
                                             helperText={errors?.name?.message}
                                             className={classes.singleLineInput}
                                             {...register("name")}
-                                            value={messageData.name}
-                                            onChange={handleValueChange}
-                                            /*{...name}*/
+                                            {...name}
                                         />
                                     )}
                                 />
@@ -225,9 +207,7 @@ export default function Contact () {
                                             className={classes.singleLineInput}
                                             color="secondary"
                                             {...register("email")}
-                                            value={messageData.email}
-                                            onChange={handleValueChange}
-                                            /*{...email}*/
+                                            {...email}
                                         />
                                     )}
                                 />
@@ -245,9 +225,7 @@ export default function Contact () {
                                             className={classes.singleLineInput}
                                             helperText={errors?.email?.message}
                                             {...register("email")}
-                                            value={messageData.email}
-                                            onChange={handleValueChange}
-                                            /*{...email}*/
+                                            {...email}
                                         />
                                     )}
                                 />
@@ -268,9 +246,7 @@ export default function Contact () {
                                         color="secondary"
                                         className={classes.multilineInput}
                                         {...register("message")}
-                                        value={messageData.message}
-                                        onChange={handleValueChange}
-                                        /*{...message}*/
+                                        {...message}
                                     />
                                 )}
                             />
@@ -290,20 +266,24 @@ export default function Contact () {
                                         helperText={errors?.message?.message}
                                         className={classes.multilineInput}
                                         {...register("message")}
-                                        value={messageData.message}
-                                        onChange={handleValueChange}
-                                        /*{...message}*/
+                                        {...message}
                                     />
                                 )}
                             />
                         )}
-                        <CustomButton
-                            variant="contained"
-                            className={classes.btn}
-                            type="submit"
-                        >
-                            Wyślij
-                        </CustomButton>
+                        <Box>
+                            <ReCAPTCHA
+                                ref={recaptchaRef}
+                                sitekey=""
+                            />
+                            <CustomButton
+                                variant="contained"
+                                className={classes.btn}
+                                type="submit"
+                            >
+                                Wyślij
+                            </CustomButton>
+                        </Box>
                     </form>
                 </Box>
             </Box>

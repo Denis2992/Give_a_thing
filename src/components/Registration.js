@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Box, CardMedia, TextField, Typography} from "@mui/material";
+import {Box, TextField, Typography} from "@mui/material";
 import Menu from "./home_components/Menu";
 import Decoration from "../assets/Decoration.svg";
 import CustomButton from "./home_components/CustomButton";
@@ -10,18 +10,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import getFirebase from "./firebase";
 import {useHistory} from "react-router-dom";
+import CustomCardMedia from "./home_components/CustomCardMedia";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
         maxWidth: 1500,
         margin: "0 auto",
-        color: theme.palette.secondary.main
+        color: theme.palette.secondary.main,
     },
     loginBox: {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-
     },
     decoration: {
         width: 250,
@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 380,
         height: "100%",
         width: "100%",
+
 
     },
     input: {
@@ -118,7 +119,7 @@ export default function Login () {
             <Menu />
             <Box className={classes.loginBox}>
                 <Typography variant="h4" style={{marginTop: 80}}>Załóż konto</Typography>
-                <CardMedia component="img" image={Decoration} className={classes.decoration}/>
+                <CustomCardMedia component="img" image={Decoration} className={classes.decoration}/>
                 <form className={classes.form} onSubmit={handleSubmit(signUp)}>
                     <Box className={classes.formBox}>
                         {!errors?.email ? (

@@ -4,6 +4,7 @@ import Decoration from "../../assets/Decoration.svg";
 import Signature from "../../assets/Signature.svg";
 import PeopleImage from "../../assets/People.jpg";
 import {makeStyles} from "@mui/styles";
+import CustomCardMedia from "./CustomCardMedia";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
@@ -36,8 +37,7 @@ const useStyles = makeStyles((theme) => ({
     signature: {
         width: 210,
         height: 150,
-        alignSelf: "flex-end",
-        margin: theme.spacing(5, 8, 0, 0)
+        margin: "40px -300px 0 0"
     },
     image: {
         maxWidth: 950,
@@ -52,13 +52,13 @@ export default function AboutUs () {
         <Box className={classes.mainBox} name="AboutUs">
             <Box className={classes.infoBox}>
                 <Typography variant="h4" className={classes.head}>O nas</Typography>
-                <CardMedia component="img" image={Decoration} className={classes.decoration}/>
+                <CustomCardMedia component="img" image={Decoration} className={classes.decoration}/>
                 <Typography variant="h5" className={classes.description}>
                     Nori grape silver beet broccoli kombu beet greens fava
                     bean potato quandong celery. Bunya nuts black-eyed pea
                     prairie turnip leek lentil turnip greens parsnip.
                 </Typography>
-                <CardMedia component="img" image={Signature} className={classes.signature}/>
+                <CustomCardMedia component="img" image={Signature} className={classes.signature}/>
             </Box>
             <CardMedia component="img" image={PeopleImage} className={classes.image}/>
         </Box>

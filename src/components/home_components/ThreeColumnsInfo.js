@@ -8,7 +8,8 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         backgroundImage: `url(${Background})`,
         display: "flex",
-        justifyContent: "space-around"
+        justifyContent: "space-around",
+        padding: theme.spacing(4, 0, 8, 0)
     },
     singleBox: {
         maxWidth: theme.spacing(50),
@@ -17,15 +18,14 @@ const useStyles = makeStyles((theme) => ({
     number: {
         color: theme.palette.primary.dark,
         fontWeight: 300,
-        margin: theme.spacing(4, 0, 2, 0)
     },
     head: {
-        color: theme.palette.text.primary
+        color: theme.palette.text.primary,
+        padding: theme.spacing(2,0,3,0)
     },
     description: {
         color: theme.palette.text.primary,
         fontWeight: 300,
-        margin: theme.spacing(3, 0, 8, 0)
     }
 }));
 
