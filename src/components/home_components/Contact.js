@@ -271,10 +271,10 @@ export default function Contact () {
                                 )}
                             />
                         )}
-                        <Box>
+                        <Box style={{display: "flex", justifyContent: "space-between"}}>
                             <ReCAPTCHA
                                 ref={recaptchaRef}
-                                sitekey=""
+                                sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"
                             />
                             <CustomButton
                                 variant="contained"
