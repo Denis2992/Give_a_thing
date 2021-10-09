@@ -108,7 +108,6 @@ export default function Contact () {
     });
 
     const submitForm = async() => {
-        await recaptchaRef.current.executeAsync();
 
         if (firebase) {
             try {
@@ -271,19 +270,17 @@ export default function Contact () {
                                 )}
                             />
                         )}
-                        <Box style={{display: "flex", justifyContent: "space-between"}}>
-                            <ReCAPTCHA
-                                ref={recaptchaRef}
-                                sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"
-                            />
-                            <CustomButton
-                                variant="contained"
-                                className={classes.btn}
-                                type="submit"
-                            >
-                                Wyślij
-                            </CustomButton>
-                        </Box>
+                        {/*<ReCAPTCHA*/}
+                        {/*    ref={recaptchaRef}*/}
+                        {/*    sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"*/}
+                        {/*/>*/}
+                        <CustomButton
+                            variant="contained"
+                            className={classes.btn}
+                            type="submit"
+                        >
+                            Wyślij
+                        </CustomButton>
                     </form>
                 </Box>
             </Box>
