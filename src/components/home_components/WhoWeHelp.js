@@ -3,7 +3,7 @@ import {Box, Divider, List, ListItem, Pagination, Typography} from "@mui/materia
 import Decoration from "../../assets/Decoration.svg";
 import {makeStyles} from "@mui/styles";
 import {CurrentUserContext} from "../../App";
-import CustomCardMedia from "./CustomCardMedia";
+import CustomCardMedia from "../custom_elements/CustomCardMedia";
 
 
 const useStyles = makeStyles((theme) => ({

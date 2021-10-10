@@ -8,11 +8,10 @@ import {makeStyles} from "@mui/styles";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import CustomButton from "./CustomButton";
-import useInput from "./useInput";
+import CustomButton from "../custom_elements/CustomButton";
+import useInput from "../hooks/useInput";
 import getFirebase from "../firebase";
-import CustomCardMedia from "./CustomCardMedia";
-import ReCAPTCHA from "react-google-recaptcha";
+import CustomCardMedia from "../custom_elements/CustomCardMedia";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
@@ -84,7 +83,6 @@ export default function Contact () {
     const [message, resetMessage] = useInput("");
     const [messageStatus, setMessageStatus] = useState(false);
     const firebase = getFirebase();
-    const recaptchaRef = React.createRef();
 
     const schema = yup.object({
         name: yup

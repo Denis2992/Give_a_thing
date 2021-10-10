@@ -2,7 +2,7 @@ import React from "react";
 import {Box, CardMedia, Typography} from "@mui/material";
 import Menu from "./home_components/Menu";
 import Decoration from "../assets/Decoration.svg";
-import CustomButton from "./home_components/CustomButton";
+import CustomButton from "./custom_elements/CustomButton";
 import {makeStyles} from "@mui/styles";
 import {useHistory} from "react-router-dom";
 

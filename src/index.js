@@ -57,6 +57,9 @@ export const theme = createTheme({
             fontSize: 14,
         },
     },
+    shape: {
+        borderRadius: 0,
+    },
 });
 
 const Index = () => {

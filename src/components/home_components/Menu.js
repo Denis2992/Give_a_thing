@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         alignSelf: "flex-end",
+        justifySelf:"flex-start",
         marginRight: theme.spacing(5),
     },
     logRegList: {

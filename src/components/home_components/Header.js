@@ -5,7 +5,7 @@ import {makeStyles} from "@mui/styles";
 import HomeImage from "../../assets/Home-Hero-Image.jpg";
 import Decoration from "../../assets/Decoration.svg";
 import {useHistory} from "react-router-dom";
-import CustomCardMedia from "./CustomCardMedia";
+import CustomCardMedia from "../custom_elements/CustomCardMedia";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,11 +42,11 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0)
     },
     btnBox: {
+        marginTop: theme.spacing(3),
         display: "flex",
         justifyContent: "space-around",
     },
     btn: {
-        marginTop: theme.spacing(3),
         maxWidth: 250,
         width: "100%",
         "&:hover": {

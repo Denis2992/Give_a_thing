@@ -7,7 +7,7 @@ import Icon3 from "../../assets/Icon-3.svg";
 import Icon4 from "../../assets/Icon-4.svg";
 import {makeStyles} from "@mui/styles";
 import {useHistory} from "react-router-dom";
-import CustomCardMedia from "./CustomCardMedia";
+import CustomCardMedia from "../custom_elements/CustomCardMedia";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {

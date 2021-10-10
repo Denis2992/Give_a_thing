@@ -4,7 +4,7 @@ import Decoration from "../../assets/Decoration.svg";
 import Signature from "../../assets/Signature.svg";
 import PeopleImage from "../../assets/People.jpg";
 import {makeStyles} from "@mui/styles";
-import CustomCardMedia from "./CustomCardMedia";
+import CustomCardMedia from "../custom_elements/CustomCardMedia";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {

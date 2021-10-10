@@ -2,15 +2,15 @@ import React, {useState} from "react";
 import {Box, TextField, Typography} from "@mui/material";
 import Menu from "./home_components/Menu";
 import Decoration from "../assets/Decoration.svg";
-import CustomButton from "./home_components/CustomButton";
+import CustomButton from "./custom_elements/CustomButton";
 import {makeStyles} from "@mui/styles";
-import useInput from "./home_components/useInput";
+import useInput from "./hooks/useInput";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import getFirebase from "./firebase";
 import {useHistory} from "react-router-dom";
-import CustomCardMedia from "./home_components/CustomCardMedia";
+import CustomCardMedia from "./custom_elements/CustomCardMedia";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
