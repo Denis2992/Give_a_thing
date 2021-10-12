@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     decoration: {
         width: 250,
@@ -41,20 +41,17 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(4, 0, 2, 0)
     },
     singleLineInput: {
-        maxWidth: 250,
+        width: 230,
         height: 80,
-        margin: theme.spacing(0, 2, 2, 2),
-
     },
     multilineInput: {
-        maxWidth: 460,
+        maxWidth: 500,
         width: "100%",
         height: 150,
-        margin: theme.spacing(0, 2)
     },
     btn: {
         alignSelf: "flex-end",
-        margin: theme.spacing(3, 1.5, 2, 2)
+        margin: `${theme.spacing(3, 0, 2, 2)} !important`
     },
     footer: {
         backgroundColor: "rgba(255, 255, 255, 0.7)",
@@ -74,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         marginBottom: theme.spacing(1),
     }
-}))
+}));
 
 export default function Contact () {
     const classes = useStyles();
@@ -154,7 +151,7 @@ export default function Contact () {
                         style={{display: "flex", flexDirection: "column"}}
                         onSubmit={handleSubmit(submitForm)}
                     >
-                        <div>
+                        <Box style={{marginBottom: 16}}>
                             {!errors?.name ? (
                                 <Controller
                                     name="name"
@@ -166,6 +163,7 @@ export default function Contact () {
                                             placeholder="Krzysztof"
                                             variant="standard"
                                             className={classes.singleLineInput}
+                                            style={{marginRight: 32}}
                                             color="secondary"
                                             {...register("name")}
                                             {...name}
@@ -185,6 +183,7 @@ export default function Contact () {
                                             variant="standard"
                                             helperText={errors?.name?.message}
                                             className={classes.singleLineInput}
+                                            style={{marginRight: 32}}
                                             {...register("name")}
                                             {...name}
                                         />
@@ -227,7 +226,7 @@ export default function Contact () {
                                     )}
                                 />
                             )}
-                        </div>
+                        </Box>
                         {!errors?.message ? (
                             <Controller
                                 name="message"
