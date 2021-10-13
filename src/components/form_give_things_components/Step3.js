@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 import {useStyles} from "./styles";
-import {Box, Checkbox, MenuItem, Select, TextField, Typography} from "@mui/material";
+import {Alert, Box, Checkbox, MenuItem, Select, TextField, Typography} from "@mui/material";
 import CustomTypography from "../custom_elements/CustomTypography";
 import FormControl from "@mui/material/FormControl";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -46,14 +46,57 @@ export default function Step3 () {
     const {
         location,
         helpGroups, setHelpGroups,
-        handleNextStep, handlePreviousStep} = useContext(FormGiveThingsContext);
-
+        organizationName,
+        checked1, setChecked1,
+        checked2, setChecked2,
+        checked3, setChecked3,
+        checked4, setChecked4,
+        checked5, setChecked5,
+        handleNextStep, handlePreviousStep
+    } = useContext(FormGiveThingsContext);
+    const [errorLocalization, setErrorLocalization] = useState(false);
+    const [errorCheckbox, setErrorCheckbox] = useState(false);
+    const [errorOrganization, setErrorOrganization] = useState(false);
 
     const handleAddCategory = (e) => {
         if (helpGroups.find(el => el === e.target.value)) {
             setHelpGroups(prevState => [...prevState].filter(el => el !== e.target.value));
         } else {
             setHelpGroups(prevState => [...prevState, e.target.value]);
+        }
+    };
+
+    const validForm = () => {
+        // validLocation
+        if (!location.value) {
+            setErrorLocalization(true);
+        } else {
+            setErrorLocalization(false);
+        }
+        // validHelpGroups
+        if (helpGroups.length === 0) {
+            setErrorCheckbox(true);
+        } else {
+            setErrorCheckbox(false);
+
+        }
+        // valid organization
+        if (organizationName.value.length !== 0) {
+            if (organizationName.value.length < 3 || /\d/.test(organizationName.value)) {
+                setErrorOrganization(true);
+            } else {
+                setErrorOrganization(false);
+            }
+        } else {
+            setErrorOrganization(false);
+        }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        validForm();
+        if (location.value !== "" && helpGroups.length !== 0) {
+            handleNextStep();
         }
     };
 
@@ -69,10 +112,11 @@ export default function Step3 () {
                     Lokalizacja:
                 </Typography>
             </Box>
-            <form className={classes.formStep}>
+            <form className={classes.formStep} onSubmit={handleSubmit}>
                 <Box>
                     <FormControl className={classes.select}>
                         <Select
+                            name="location"
                             color="secondary"
                             size="small"
                             displayEmpty
@@ -88,7 +132,23 @@ export default function Step3 () {
                             <MenuItem value="Katowice">Katowice</MenuItem>
                         </Select>
                     </FormControl>
-                    <Typography className={classes.step3Text} style={{fontWeight: 600, marginTop: 40}}>Komu chcesz pomóc?</Typography>
+                    {errorLocalization ? (
+                        <Alert
+                            severity="warning"
+                            style={{
+                                maxWidth: 300,
+                                backgroundColor: "transparent",
+                                padding: "5px 0",
+                            }}
+                        >
+                            Wybierz lokalizację
+                        </Alert>
+                    ) : (
+                        <div style={{height: 48}}/>
+                    )}
+                    <Typography
+                        className={classes.step3Text}
+                        style={{fontWeight: 600, marginTop: 10}}>Komu chcesz pomóc?</Typography>
                     <Box className={classes.checkboxGroup}>
                         <Checkbox
                             style={{
@@ -101,7 +161,12 @@ export default function Step3 () {
                             checkedIcon={<BpCheckedIcon data={'"dzieciom"'} />}
                             icon={<BpIcon data={'"dzieciom"'} />}
                             value="dzieciom"
-                            onChange={handleAddCategory}
+                            checked={checked1}
+                            onChange={(e) => {
+                                setChecked1(e.target.checked);
+                                handleAddCategory(e);
+                            }}
+                            inputProps={{ 'aria-label': 'controlled' }}
                         />
                         <Checkbox
                             style={{
@@ -113,9 +178,13 @@ export default function Step3 () {
                             color="default"
                             checkedIcon={<BpCheckedIcon data={'"samotnym matkom"'} />}
                             icon={<BpIcon data={'"samotnym matkom"'} />}
-                            inputProps={{ 'aria-label': 'Checkbox demo' }}
                             value="samotnym matkom"
-                            onChange={handleAddCategory}
+                            checked={checked2}
+                            onChange={(e) => {
+                                setChecked2(e.target.checked);
+                                handleAddCategory(e);
+                            }}
+                            inputProps={{ 'aria-label': 'controlled' }}
                         />
                         <Checkbox
                             style={{
@@ -127,9 +196,13 @@ export default function Step3 () {
                             color="default"
                             checkedIcon={<BpCheckedIcon data={'"bezdomnym"'} />}
                             icon={<BpIcon data={'"bezdomnym"'} />}
-                            inputProps={{ 'aria-label': 'Checkbox demo' }}
                             value="bezdomnym"
-                            onChange={handleAddCategory}
+                            checked={checked3}
+                            onChange={(e) => {
+                                setChecked3(e.target.checked);
+                                handleAddCategory(e);
+                            }}
+                            inputProps={{ 'aria-label': 'controlled' }}
                         />
                         <Checkbox
                             style={{
@@ -141,9 +214,13 @@ export default function Step3 () {
                             color="default"
                             checkedIcon={<BpCheckedIcon data={'"niepełnosprawnym"'} />}
                             icon={<BpIcon data={'"niepełnosprawnym"'} />}
-                            inputProps={{ 'aria-label': 'Checkbox demo' }}
                             value="niepełnosprawnym"
-                            onChange={handleAddCategory}
+                            checked={checked4}
+                            onChange={(e) => {
+                                setChecked4(e.target.checked);
+                                handleAddCategory(e);
+                            }}
+                            inputProps={{ 'aria-label': 'controlled' }}
                         />
                         <Checkbox
                             style={{
@@ -155,17 +232,59 @@ export default function Step3 () {
                             color="default"
                             checkedIcon={<BpCheckedIcon data={'"osobom starszym"'} />}
                             icon={<BpIcon data={'"osobom starszym"'} />}
-                            inputProps={{ 'aria-label': 'Checkbox demo' }}
                             value="osobom starszym"
-                            onChange={handleAddCategory}
+                            checked={checked5}
+                            onChange={(e) => {
+                                setChecked5(e.target.checked);
+                                handleAddCategory(e);
+                            }}
+                            inputProps={{ 'aria-label': 'controlled' }}
                         />
                     </Box>
+                    {errorCheckbox ? (
+                        <Alert
+                            severity="warning"
+                            style={{
+                                maxWidth: 300,
+                                height: 20,
+                                backgroundColor: "transparent",
+                                padding: 0,
+                                marginTop: "-5px"
+                        }}
+                            >
+                            Zaznacz przynajmniej jedno pole
+                        </Alert>
+                    ) : (
+                        <div style={{height: 20, marginTop: "-5px"}}/>
+                    )}
                     <Typography className={classes.step3Text} style={{fontWeight: 600, margin: "20px 0 10px 0"}}>Wpisz nazwę konkretnej organizacji (opcjonalnie)</Typography>
-                    <TextField size="small" color="secondary" style={{maxWidth: 450, width: "100%"}}/>
+                    <TextField
+                        name="organizationName"
+                        size="small"
+                        color="secondary"
+                        style={{maxWidth: 450, width: "100%"}}
+                        {...organizationName}
+                    />
+                    {errorOrganization ? (
+                        <Alert
+                            severity="warning"
+                            style={{
+                                maxWidth: 300,
+                                height: 20,
+                                backgroundColor: "transparent",
+                                padding: 0,
+                                marginTop: "-5px"
+                            }}
+                        >
+                            Nazwa ma zawierać tylko litery i minimalną długość 3
+                        </Alert>
+                    ) : (
+                        <div style={{height: 20, marginTop: "-5px"}}/>
+                    )}
                 </Box>
                 <Box>
                     <FormButton style={{marginRight: 50}} onClick={handlePreviousStep}>Wstecz</FormButton>
-                    <FormButton onClick={handleNextStep}>Dalej</FormButton>
+                    <FormButton type="submit">Dalej</FormButton>
                 </Box>
             </form>
         </Box>

@@ -54,7 +54,8 @@ export const theme = createTheme({
             fontSize: 18,
         },
         caption: {
-            fontSize: 14,
+            fontSize: 13,
+            lineHeight: 1,
         },
     },
     shape: {

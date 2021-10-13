@@ -1,6 +1,6 @@
 import {makeStyles} from "@mui/styles";
 import FormBackground from "../../assets/Background-Form.jpg";
-import {lighten} from "@mui/material";
+
 
 export const useStyles = makeStyles((theme) => ({
     mainBox:{
@@ -65,14 +65,14 @@ export const useStyles = makeStyles((theme) => ({
         color: theme.palette.primary.contrastText,
     },
     step4SingleFormBox: {
+        height: 50,
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
+        margin: "10px 0",
     },
-    //!!!!!
     formInput: {
-        margin: "12px 0",
-        width: 250
+        maxWidth: 240,
     },
     formHead: {
         marginBottom: 20,
@@ -102,5 +102,5 @@ export const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-    }
+    },
 }));

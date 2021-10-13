@@ -64,7 +64,7 @@ export default function Step2 () {
                         {error ? (
                             <Alert
                                 severity="warning"
-                                style={{maxWidth: 250, backgroundColor: "transparent", padding: "10px 0"}}
+                                style={{maxWidth: 250, backgroundColor: "transparent", padding: "5px 0"}}
                             >
                                 Podaj liczbę worków
                             </Alert>

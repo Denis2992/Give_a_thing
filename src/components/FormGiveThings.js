@@ -13,16 +13,34 @@ export const FormGiveThingsContext = createContext("");
 
 export default function FormGiveThings () {
     const classes = useStyles();
-    const [step, setStep] = useState(3)
+    const [step, setStep] = useState(4);
+    //step1
     const [category, setCategory] = useState("");
     const [otherCategory, setOtherCategory] = useState("");
     const [newOptionStep1, setNewOptionStep1] = useState(false);
+    //step2
     const [bagsCount, resetBagsCount] = useInput("");
+    //step3
     const [location, resetLocation] = useInput("");
     const [helpGroups, setHelpGroups] = useState([]);
+    const [organizationName, resetOrganizationName] = useInput("");
+        // checked Checkboxes
+    const [checked1, setChecked1] = useState(false);
+    const [checked2, setChecked2] = useState(false);
+    const [checked3, setChecked3] = useState(false);
+    const [checked4, setChecked4] = useState(false);
+    const [checked5, setChecked5] = useState(false);
+    // step4
+    const [street, resetStreet] = useInput("");
+    const [city, resetCity] = useInput("");
+    const [postcode, resetPostcode] = useInput("");
+    const [phoneNumber, resetPhoneNumber] = useInput("");
+    const [date, resetDate] = useInput("");
+    const [time, resetTime] = useInput("");
+    const [attentions, resetAttentions] = useInput("");
+
 
     const handleNextStep = () => {
-
         setStep(prevState => prevState + 1);
     };
 
@@ -40,6 +58,19 @@ export default function FormGiveThings () {
                 bagsCount, resetBagsCount,
                 location, resetLocation,
                 helpGroups, setHelpGroups,
+                checked1, setChecked1,
+                checked2, setChecked2,
+                checked3, setChecked3,
+                checked4, setChecked4,
+                checked5, setChecked5,
+                street, resetStreet,
+                city, resetCity,
+                postcode, resetPostcode,
+                phoneNumber, resetPhoneNumber,
+                date, resetDate,
+                time, resetTime,
+                attentions, resetAttentions,
+                organizationName, resetOrganizationName,
                 handleNextStep, handlePreviousStep
             }}
         >

@@ -198,7 +198,7 @@ export default function Step1 () {
                     {error ? (
                         <Alert
                             severity="warning"
-                            style={{maxWidth: 300, backgroundColor: "transparent", padding: "10px 0"}}
+                            style={{maxWidth: 300, backgroundColor: "transparent", padding: "5px 0"}}
                         >
                             Zaznacz lub napisz co chcesz oddać
                         </Alert>
