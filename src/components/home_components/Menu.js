@@ -2,7 +2,8 @@ import React, {useContext} from "react";
 import {
     List,
     ListItem,
-    Box, Typography, ListItemButton
+    Box,
+    Typography
 } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import {useHistory} from "react-router-dom";
