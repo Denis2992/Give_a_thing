@@ -73,9 +73,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Login () {
     const classes = useStyles();
     const firebaseInstance = getFirebase();
-    const regEmail = useInput("");
-    const regPassword = useInput("");
-    const confirmPassword = useInput("");
+    const [regEmail] = useInput("");
+    const [regPassword] = useInput("");
+    const [confirmPassword] = useInput("");
     const history = useHistory();
     const [notSentError, setNotSendError] = useState(false);
 

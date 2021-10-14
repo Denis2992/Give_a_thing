@@ -82,7 +82,6 @@ export const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         margin: "10px 0",
-        maxWidth: 600
     },
     cardMedia: {
         maxWidth: 35,
@@ -90,9 +89,10 @@ export const useStyles = makeStyles((theme) => ({
         marginRight: 15
     },
     wroteData: {
+        width: 350,
         display: "flex",
         alignItems: "center",
-        margin: "10px 0"
+        margin: "10px 0",
     },
     confirmBox: {
         padding: "20px 80px 40px 80px",

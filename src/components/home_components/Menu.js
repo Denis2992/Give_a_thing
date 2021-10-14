@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {
     List,
     ListItem,
-    Box, Typography
+    Box, Typography, ListItemButton
 } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import {useHistory} from "react-router-dom";
@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
     },
     logRegList: {
         display: "flex",
-        alignSelf: "flex-end",
+        justifyContent: "flex-end",
     },
     logRegListItem: {
         display: "flex",
-        justifyContent: "center",
-        textAlign: "center",
+        justifyContent: "center !important",
         color: theme.palette.text.secondary,
-        margin: "0 10px",
+        margin: "10px 10px",
+        padding: "10px 5px !important",
         cursor: "pointer",
         fontSize: 14,
         transition: "all 0.2s ease-out",
@@ -93,12 +93,14 @@ export default function Menu () {
                        <Typography className={classes.userName}>Cześć {currentUser}</Typography>
                        <ListItem
                            className={classes.logRegListItem}
-                           style={{width: 93}}
+                           style={{width: 100}}
+                           onClick={() => history.push("/oddaj-rzeczy")}
                        >
                            Oddaj rzeczy
                        </ListItem>
                        <ListItem
                            className={classes.logRegListItem}
+                           style={{width: 75}}
                            onClick={() => signOut()}
                        >
                            Wyloguj
@@ -108,13 +110,14 @@ export default function Menu () {
                     <>
                         <ListItem
                             className={classes.logRegListItem}
+                            style={{width: 70}}
                             onClick={() => history.push("/logowanie")}
                         >
                             Zaloguj
                         </ListItem>
                         <ListItem
                             className={classes.logRegListItem}
-                            style={{minWidth: 102}}
+                            style={{width: 90}}
                             onClick={() => history.push("/rejestracja")}
                         >
                             Załóż konto

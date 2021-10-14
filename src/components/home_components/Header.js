@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import Menu from "./Menu";
 import {CardMedia, Box, Typography, Button} from "@mui/material";
 import {makeStyles} from "@mui/styles";
@@ -6,7 +6,7 @@ import HomeImage from "../../assets/Home-Hero-Image.jpg";
 import Decoration from "../../assets/Decoration.svg";
 import {useHistory} from "react-router-dom";
 import CustomCardMedia from "../custom_elements/CustomCardMedia";
-
+import {CurrentUserContext} from "../../App";
 
 const useStyles = makeStyles((theme) => ({
     boxComponent: {
@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header () {
     const classes = useStyles();
     const history = useHistory();
+    const {currentUser} = useContext(CurrentUserContext);
 
     return (
         <Box className={classes.boxComponent}>
@@ -80,7 +81,13 @@ export default function Header () {
                             className={classes.btn}
                             color="secondary"
                             variant="outlined"
-                            onClick={() => history.push("/logowanie")}
+                            onClick={() => {
+                                if (currentUser) {
+                                    history.push("/oddaj-rzeczy")
+                                } else {
+                                    history.push("/logowanie")
+                                }
+                            }}
                         >
                             Oddaj<br/> rzeczy
                         </Button>

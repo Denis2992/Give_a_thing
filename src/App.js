@@ -16,18 +16,18 @@ function App() {
     const [local, setLocal] = useState([]);
 
 
-    // useEffect(() => {
-    //     const firebase = getFirebase();
-    //
-    //     if (firebase) {
-    //         firebase.auth().onAuthStateChanged((authUser) => {
-    //             if (authUser) {
-    //                 setCurrentUser(authUser.email);
-    //             } else {
-    //                 setCurrentUser(null);
-    //             }
-    //         });
-    //     }
+    useEffect(() => {
+        const firebase = getFirebase();
+
+        if (firebase) {
+            firebase.auth().onAuthStateChanged((authUser) => {
+                if (authUser) {
+                    setCurrentUser(authUser.email);
+                } else {
+                    setCurrentUser(null);
+                }
+            });
+        }},[])
     //
     //     const fetchFoundations = async () => {
     //         try {

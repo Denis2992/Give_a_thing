@@ -71,8 +71,8 @@ export default function Login () {
     const classes = useStyles();
     const history = useHistory();
     const firebaseInstance = getFirebase();
-    const loginEmail = useInput("");
-    const loginPassword = useInput("");
+    const [loginEmail] = useInput("");
+    const [loginPassword] = useInput("");
     const [notSentErr, setNotSentErr] = useState(false);
 
     const schema = yup.object({

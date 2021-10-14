@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Box, Button, Divider, Typography} from "@mui/material";
 import Decoration from "../../assets/Decoration.svg";
 import Icon1 from "../../assets/Icon-1.svg";
@@ -8,6 +8,7 @@ import Icon4 from "../../assets/Icon-4.svg";
 import {makeStyles} from "@mui/styles";
 import {useHistory} from "react-router-dom";
 import CustomCardMedia from "../custom_elements/CustomCardMedia";
+import {CurrentUserContext} from "../../App";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
@@ -70,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SimpleSteps () {
     const classes = useStyles();
     const history = useHistory();
+    const {currentUser} = useContext(CurrentUserContext);
 
     return (
         <Box className={classes.mainBox} name="SimpleSteps">
@@ -115,7 +117,13 @@ export default function SimpleSteps () {
                 className={classes.btn}
                 variant="outlined"
                 color="secondary"
-                onClick={() => history.push("/logowanie")}
+                onClick={() => {
+                    if (currentUser) {
+                        history.push("/oddaj-rzeczy")
+                    } else {
+                        history.push("/logowanie")
+                    }
+                }}
             >
                 ODDAJ<br/> RZECZY
             </Button>

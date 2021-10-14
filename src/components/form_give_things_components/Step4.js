@@ -39,7 +39,7 @@ export default function Step4 () {
         time: yup
             .string()
             .required("Wybierz godzinę"),
-        attentions: yup.string()
+        attentions: yup.string().max(120, "Uwagi nie mogą byc dłuższe niz 120 znaków")
     }).required();
 
     const {  control, register, formState: { errors }, handleSubmit } = useForm({
@@ -344,6 +344,14 @@ export default function Step4 () {
                                     style={{backgroundColor: "transparent", height: 25, padding: 0}}
                                 >
                                     {errors?.time?.message}
+                                </Alert>
+                            ) : null}
+                            {errors?.attentions ? (
+                                <Alert
+                                    severity="error"
+                                    style={{backgroundColor: "transparent", height: 25, padding: 0}}
+                                >
+                                    {errors?.attentions?.message}
                                 </Alert>
                             ) : null}
                         </Box>

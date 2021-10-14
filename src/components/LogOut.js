@@ -5,6 +5,7 @@ import Decoration from "../assets/Decoration.svg";
 import CustomButton from "./custom_elements/CustomButton";
 import {makeStyles} from "@mui/styles";
 import {useHistory} from "react-router-dom";
+import CustomCardMedia from "./custom_elements/CustomCardMedia";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
@@ -16,10 +17,10 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        marginTop: 80
     },
     head: {
-        textAlign: "center",
-        marginTop: 80
+        textAlign: "center"
     },
     decoration: {
         width: 250,
@@ -37,7 +38,7 @@ export default function LogOut () {
             <Menu />
             <Box className={classes.infoBox}>
                 <Typography variant="h4" className={classes.head}>Wylogowanie nastąpiło<br/> pomyślnie!</Typography>
-                <CardMedia component="img" image={Decoration} className={classes.decoration}/>
+                <CustomCardMedia component="img" image={Decoration} className={classes.decoration}/>
                 <CustomButton onClick={() => history.push("/")}>Strona główna</CustomButton>
             </Box>
         </Box>

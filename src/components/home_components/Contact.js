@@ -12,6 +12,7 @@ import CustomButton from "../custom_elements/CustomButton";
 import useInput from "../hooks/useInput";
 import getFirebase from "../firebase";
 import CustomCardMedia from "../custom_elements/CustomCardMedia";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
@@ -80,6 +81,11 @@ export default function Contact () {
     const [message, resetMessage] = useInput("");
     const [messageStatus, setMessageStatus] = useState(false);
     const firebase = getFirebase();
+    const recaptchaRef = React.createRef();
+
+    function onChange(value) {
+        console.log("Captcha value:", value);
+    }
 
     const schema = yup.object({
         name: yup
@@ -103,6 +109,8 @@ export default function Contact () {
     });
 
     const submitForm = async() => {
+        const recaptchaValue = recaptchaRef.current.getValue();
+        this.props.onSubmit(recaptchaValue);
 
         if (firebase) {
             try {
@@ -267,10 +275,11 @@ export default function Contact () {
                                 )}
                             />
                         )}
-                        {/*<ReCAPTCHA*/}
-                        {/*    ref={recaptchaRef}*/}
-                        {/*    sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"*/}
-                        {/*/>*/}
+                        <ReCAPTCHA
+                            ref={recaptchaRef}
+                            sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"
+                            onChange={onChange}
+                        />
                         <CustomButton
                             variant="contained"
                             className={classes.btn}

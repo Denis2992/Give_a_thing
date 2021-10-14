@@ -13,7 +13,7 @@ export const FormGiveThingsContext = createContext("");
 
 export default function FormGiveThings () {
     const classes = useStyles();
-    const [step, setStep] = useState(4);
+    const [step, setStep] = useState(1);
     //step1
     const [category, setCategory] = useState("");
     const [otherCategory, setOtherCategory] = useState("");
