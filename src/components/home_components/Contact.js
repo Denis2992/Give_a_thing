@@ -81,6 +81,7 @@ export default function Contact () {
     const [message, resetMessage] = useInput("");
     const [messageStatus, setMessageStatus] = useState(false);
     const [verified, setVerified] = useState(false);
+    const [verifiedError, setVerifiedError] = useState(false);
     const firebase = getFirebase();
     const recaptchaRef = React.createRef();
 
@@ -130,6 +131,7 @@ export default function Contact () {
                         setMessageStatus(false)
                     }, 2000);
                     setVerified(false);
+                    setVerifiedError(false);
                     resetName();
                     resetEmail();
                     resetMessage();
@@ -137,6 +139,8 @@ export default function Contact () {
                     console.log("error", error);
                 }
             }
+        } else {
+            setVerifiedError(true);
         }
 
 
@@ -290,7 +294,7 @@ export default function Contact () {
                                     sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"
                                     onChange={onChange}
                                 />
-                                {!verified ? (
+                                {!verifiedError ? (
                                     <Typography
                                         variant="body2"
                                         color="error"
