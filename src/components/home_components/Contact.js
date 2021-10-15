@@ -286,9 +286,9 @@ export default function Contact () {
                             display: "flex",
                             justifyContent: "space-between",
                             alignItems: "center",
-                            height: 100
+                            marginTop: 10
                         }}>
-                            <Box style={{paddingTop: 50}}>
+                            <Box>
                                 <ReCAPTCHA
                                     ref={recaptchaRef}
                                     sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"
