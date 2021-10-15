@@ -82,12 +82,10 @@ export default function Contact () {
     const [messageStatus, setMessageStatus] = useState(false);
     const firebase = getFirebase();
     const recaptchaRef = React.createRef();
-    const [captchaReady, setCaptchaReady] = useInput(false);
 
-    const onLoad = () => {
-        console.log(recaptchaRef.current.getValue());
-        setCaptchaReady(true);
-    }
+    // const onChange = () => {
+    //     console.log(recaptchaRef.current.getValue());
+    // }
 
     const schema = yup.object({
         name: yup
@@ -112,35 +110,34 @@ export default function Contact () {
 
     const submitForm = async() => {
         const recaptchaValue = recaptchaRef.current.getValue();
-        this.props.onSubmit(recaptchaValue);
 
-        if (captchaReady) {
-            if (firebase) {
-                try {
-                    const db = firebase.firestore();
-                    const docRef = db.collection("messages").doc();
+       if (recaptchaValue) {
+           if (firebase) {
+               try {
+                   const db = firebase.firestore();
+                   const docRef = db.collection("messages").doc();
 
-                    await docRef.set(
-                        {
-                            name: name.value,
-                            email: email.value,
-                            message: message.value
-                        },
-                        {merge: true}
-                    );
-                    setMessageStatus(true);
-                    setTimeout(() => {
-                        setMessageStatus(false);
-                    }, 2000);
-                    console.log("Successfully added to Firestore!");
-                    resetName();
-                    resetEmail();
-                    resetMessage();
-                }catch (error) {
-                    console.log("error", error);
-                }
-            }
-        }
+                   await docRef.set(
+                       {
+                           name: name.value,
+                           email: email.value,
+                           message: message.value
+                       },
+                       {merge: true}
+                   );
+                   setMessageStatus(true);
+                   setTimeout(() => {
+                       setMessageStatus(false)
+                   }, 2000);
+                   console.log("Successfully added to Firestore!");
+                   resetName();
+                   resetEmail();
+                   resetMessage();
+               }catch (error) {
+                   console.log("error", error);
+               }
+           }
+       }
     };
 
     return (
@@ -283,12 +280,12 @@ export default function Contact () {
                             display: "flex",
                             justifyContent: "space-between",
                             alignItems: "center",
-                            height: 80
+                            height: 70
                         }}>
                             <ReCAPTCHA
                                 ref={recaptchaRef}
                                 sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"
-                                onLoad={onLoad}
+                                // onChange={onChange}
                             />
                             <CustomButton
                                 variant="contained"
