@@ -294,7 +294,7 @@ export default function Contact () {
                                     sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"
                                     onChange={onChange}
                                 />
-                                {!verifiedError ? (
+                                {verifiedError ? (
                                     <Typography
                                         variant="body2"
                                         color="error"
