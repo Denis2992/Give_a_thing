@@ -80,12 +80,13 @@ export default function Contact () {
     const [email, resetEmail] = useInput("");
     const [message, resetMessage] = useInput("");
     const [messageStatus, setMessageStatus] = useState(false);
+    const [verified, setVerified] = useState(false);
     const firebase = getFirebase();
     const recaptchaRef = React.createRef();
 
-    // const onChange = () => {
-    //     console.log(recaptchaRef.current.getValue());
-    // }
+    const onChange = () => {
+        setVerified(true);
+    }
 
     const schema = yup.object({
         name: yup
@@ -109,35 +110,36 @@ export default function Contact () {
     });
 
     const submitForm = async() => {
-        const recaptchaValue = recaptchaRef.current.getValue();
 
-       if (recaptchaValue) {
-           if (firebase) {
-               try {
-                   const db = firebase.firestore();
-                   const docRef = db.collection("messages").doc();
+        if (verified) {
+            if (firebase) {
+                try {
+                    const db = firebase.firestore();
+                    const docRef = db.collection("messages").doc();
 
-                   await docRef.set(
-                       {
-                           name: name.value,
-                           email: email.value,
-                           message: message.value
-                       },
-                       {merge: true}
-                   );
-                   setMessageStatus(true);
-                   setTimeout(() => {
-                       setMessageStatus(false)
-                   }, 2000);
-                   console.log("Successfully added to Firestore!");
-                   resetName();
-                   resetEmail();
-                   resetMessage();
-               }catch (error) {
-                   console.log("error", error);
-               }
-           }
-       }
+                    await docRef.set(
+                        {
+                            name: name.value,
+                            email: email.value,
+                            message: message.value
+                        },
+                        {merge: true}
+                    );
+                    setMessageStatus(true);
+                    setTimeout(() => {
+                        setMessageStatus(false)
+                    }, 2000);
+                    setVerified(false);
+                    resetName();
+                    resetEmail();
+                    resetMessage();
+                }catch (error) {
+                    console.log("error", error);
+                }
+            }
+        }
+
+
     };
 
     return (
@@ -280,13 +282,23 @@ export default function Contact () {
                             display: "flex",
                             justifyContent: "space-between",
                             alignItems: "center",
-                            height: 70
+                            height: 100
                         }}>
-                            <ReCAPTCHA
-                                ref={recaptchaRef}
-                                sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"
-                                // onChange={onChange}
-                            />
+                            <Box style={{paddingTop: 50}}>
+                                <ReCAPTCHA
+                                    ref={recaptchaRef}
+                                    sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"
+                                    onChange={onChange}
+                                />
+                                {!verified ? (
+                                    <Typography
+                                        variant="body2"
+                                        color="error"
+                                    >
+                                        Potwierdź że nie jesteś robotem
+                                    </Typography>
+                                ) : null}
+                            </Box>
                             <CustomButton
                                 variant="contained"
                                 className={classes.btn}
