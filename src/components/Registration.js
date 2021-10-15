@@ -11,6 +11,7 @@ import * as yup from "yup";
 import getFirebase from "./firebase";
 import {useHistory} from "react-router-dom";
 import CustomCardMedia from "./custom_elements/CustomCardMedia";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
@@ -41,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         backgroundColor: theme.palette.secondary.light,
         maxWidth: 380,
-        height: "100%",
         width: "100%",
 
 
@@ -59,8 +59,14 @@ const useStyles = makeStyles((theme) => ({
     errorText: {
         color: theme.palette.error.main,
     },
-    btnBox: {
+    captchaBtn: {
+        display:"flex",
+        flexDirection: "column",
+        alignItems: "center",
         maxWidth: 550,
+        width: "100%"
+    },
+    btnBox: {
         width: "100%",
         display: "flex",
         justifyContent: "space-between",
@@ -78,6 +84,13 @@ export default function Login () {
     const [confirmPassword] = useInput("");
     const history = useHistory();
     const [notSentError, setNotSendError] = useState(false);
+    const [verified, setVerified] = useState(false);
+    const [verifiedError, setVerifiedError] = useState(false);
+    const recaptchaRef = React.createRef();
+
+    const onChange = () => {
+        setVerified(true);
+    }
 
     const schema = yup.object({
         email: yup
@@ -101,16 +114,22 @@ export default function Login () {
 
     const signUp = async () => {
 
-        try {
-            if (firebaseInstance) {
-                const user = await firebaseInstance.auth().createUserWithEmailAndPassword(regEmail.value, regPassword.value)
-                console.log("user", user);
-                setNotSendError(false);
-                history.push("/");
+        if (verified){
+            try {
+                if (firebaseInstance) {
+                    const user = await firebaseInstance.auth().createUserWithEmailAndPassword(regEmail.value, regPassword.value)
+                    console.log("user", user);
+                    setNotSendError(false);
+                    setVerified(false);
+                    setVerifiedError(false);
+                    history.push("/");
+                }
+            }catch (error) {
+                console.log("error", error);
+                setNotSendError(true);
             }
-        }catch (error) {
-            console.log("error", error);
-            setNotSendError(true);
+        } else {
+            setVerifiedError(true);
         }
     };
 
@@ -239,13 +258,31 @@ export default function Login () {
                         ) : null
                         }
                     </Box>
-                    <Box className={classes.btnBox}>
-                        <Typography
-                            style={{fontWeight: 300, cursor: "pointer"}}
-                            onClick={() => history.push("/logowanie")}
-                        >
-                            Zaloguj się</Typography>
-                        <CustomButton type="submit">Załóż konto</CustomButton>
+                    <Box className={classes.captchaBtn}>
+                        <Box style={{marginBottom: 20}}>
+                            <ReCAPTCHA
+                                ref={recaptchaRef}
+                                sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"
+                                onChange={onChange}
+                            />
+                            {verifiedError ? (
+                                <Typography
+                                    variant="body2"
+                                    color="error"
+                                >
+                                    Potwierdź że nie jesteś robotem
+                                </Typography>
+                            ) : null}
+                        </Box>
+                        <Box className={classes.btnBox}>
+                            <Typography
+                                style={{fontWeight: 300, cursor: "pointer"}}
+                                onClick={() => history.push("/logowanie")}
+                            >
+                                Zaloguj się</Typography>
+
+                            <CustomButton type="submit">Załóż konto</CustomButton>
+                        </Box>
                     </Box>
                 </form>
             </Box>

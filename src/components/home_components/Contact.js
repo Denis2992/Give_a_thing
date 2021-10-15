@@ -142,8 +142,6 @@ export default function Contact () {
         } else {
             setVerifiedError(true);
         }
-
-
     };
 
     return (
