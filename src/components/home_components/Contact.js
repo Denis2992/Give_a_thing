@@ -114,29 +114,31 @@ export default function Contact () {
         const recaptchaValue = recaptchaRef.current.getValue();
         this.props.onSubmit(recaptchaValue);
 
-        if (firebase) {
-            try {
-                const db = firebase.firestore();
-                const docRef = db.collection("messages").doc();
+        if (captchaReady) {
+            if (firebase) {
+                try {
+                    const db = firebase.firestore();
+                    const docRef = db.collection("messages").doc();
 
-                await docRef.set(
-                    {
-                        name: name.value,
-                        email: email.value,
-                        message: message.value
-                    },
-                    {merge: true}
-                );
-                setMessageStatus(true);
-                setTimeout(() => {
-                    setMessageStatus(false)
-                }, 2000);
-                console.log("Successfully added to Firestore!");
-                resetName();
-                resetEmail();
-                resetMessage();
-            }catch (error) {
-                console.log("error", error);
+                    await docRef.set(
+                        {
+                            name: name.value,
+                            email: email.value,
+                            message: message.value
+                        },
+                        {merge: true}
+                    );
+                    setMessageStatus(true);
+                    setTimeout(() => {
+                        setMessageStatus(false);
+                    }, 2000);
+                    console.log("Successfully added to Firestore!");
+                    resetName();
+                    resetEmail();
+                    resetMessage();
+                }catch (error) {
+                    console.log("error", error);
+                }
             }
         }
     };
@@ -280,7 +282,8 @@ export default function Contact () {
                         <Box style={{
                             display: "flex",
                             justifyContent: "space-between",
-                            alignItems: "center"
+                            alignItems: "center",
+                            height: 80
                         }}>
                             <ReCAPTCHA
                                 ref={recaptchaRef}
