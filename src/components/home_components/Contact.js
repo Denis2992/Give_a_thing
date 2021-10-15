@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     },
     btn: {
         alignSelf: "flex-end",
-        margin: `${theme.spacing(3, 0, 2, 2)} !important`
+        margin: `${theme.spacing(0, 0, 2, 2)} !important`
     },
     footer: {
         backgroundColor: "rgba(255, 255, 255, 0.7)",
@@ -82,9 +82,11 @@ export default function Contact () {
     const [messageStatus, setMessageStatus] = useState(false);
     const firebase = getFirebase();
     const recaptchaRef = React.createRef();
+    const [captchaReady, setCaptchaReady] = useInput(false);
 
-    function onChange(value) {
-        console.log("Captcha value:", value);
+    const onLoad = () => {
+        console.log(recaptchaRef.current.getValue());
+        setCaptchaReady(true);
     }
 
     const schema = yup.object({
@@ -275,18 +277,24 @@ export default function Contact () {
                                 )}
                             />
                         )}
-                        <ReCAPTCHA
-                            ref={recaptchaRef}
-                            sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"
-                            onChange={onChange}
-                        />
-                        <CustomButton
-                            variant="contained"
-                            className={classes.btn}
-                            type="submit"
-                        >
-                            Wyślij
-                        </CustomButton>
+                        <Box style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center"
+                        }}>
+                            <ReCAPTCHA
+                                ref={recaptchaRef}
+                                sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"
+                                onLoad={onLoad}
+                            />
+                            <CustomButton
+                                variant="contained"
+                                className={classes.btn}
+                                type="submit"
+                            >
+                                Wyślij
+                            </CustomButton>
+                        </Box>
                     </form>
                 </Box>
             </Box>
