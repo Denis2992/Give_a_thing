@@ -74,6 +74,24 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const schema = yup.object({
+    name: yup
+        .string()
+        .min(3, "Imię ma zawierać minimum 3 znaki")
+        .matches(/^[A-Za-z]+$/i, "Imię nie może mieć liczb")
+        .required("Pole nie może być puste"),
+    email: yup
+        .string()
+        .email("Wprowadź poprawny email")
+        .max(50, "Maksymalna długość 50 znaków")
+        .required("Pole nie może być puste"),
+    message: yup
+        .string()
+        .max(120, "Maksymalna długość 120 znaków")
+        .required("Pole nie może być puste")
+}).required();
+
+
 export default function Contact () {
     const classes = useStyles();
     const [name, resetName] = useInput("");
@@ -85,30 +103,13 @@ export default function Contact () {
     const firebase = getFirebase();
     const recaptchaRef = React.createRef();
 
-    const onChange = () => {
-        setVerified(true);
-    }
-
-    const schema = yup.object({
-        name: yup
-            .string()
-            .min(3, "Imię ma zawierać minimum 3 znaki")
-            .matches(/^[A-Za-z]+$/i, "Imię nie może mieć liczb")
-            .required("Pole nie może być puste"),
-        email: yup
-            .string()
-            .email("Wprowadź poprawny email")
-            .max(50, "Maksymalna długość 50 znaków")
-            .required("Pole nie może być puste"),
-        message: yup
-            .string()
-            .max(120, "Maksymalna długość 120 znaków")
-            .required("Pole nie może być puste")
-    }).required();
-
     const {  control, register, formState: { errors }, handleSubmit } = useForm({
         resolver: yupResolver(schema)
     });
+
+    const onChange = () => {
+        setVerified(true);
+    }
 
     const submitForm = async() => {
 
@@ -165,32 +166,14 @@ export default function Contact () {
                         onSubmit={handleSubmit(submitForm)}
                     >
                         <Box style={{marginBottom: 16}}>
-                            {!errors?.name ? (
-                                <Controller
+                            <Controller
                                     name="name"
                                     id="name"
                                     control={control}
                                     render={() => (
                                         <TextField
-                                            label="Wpisz swoje imię"
-                                            placeholder="Krzysztof"
-                                            variant="standard"
-                                            className={classes.singleLineInput}
-                                            style={{marginRight: 32}}
-                                            color="secondary"
-                                            {...register("name")}
-                                            {...name}
-                                        />
-                                    )}
-                                />
-                            ) : (
-                                <Controller
-                                    name="name"
-                                    id="name"
-                                    control={control}
-                                    render={() => (
-                                        <TextField
-                                            error
+                                            error={!!errors?.name}
+                                            color={errors?.name ? "error" : "secondary"}
                                             label="Wpisz swoje imię"
                                             placeholder="Krzysztof"
                                             variant="standard"
@@ -202,32 +185,14 @@ export default function Contact () {
                                         />
                                     )}
                                 />
-                            )}
-                            {!errors?.email ? (
                                 <Controller
                                     name="email"
                                     id="email"
                                     control={control}
                                     render={() => (
                                         <TextField
-                                            label="Wpisz swój email"
-                                            variant="standard"
-                                            placeholder="abc@xyz.pl"
-                                            className={classes.singleLineInput}
-                                            color="secondary"
-                                            {...register("email")}
-                                            {...email}
-                                        />
-                                    )}
-                                />
-                            ) : (
-                                <Controller
-                                    name="email"
-                                    id="email"
-                                    control={control}
-                                    render={() => (
-                                        <TextField
-                                            error
+                                            error={!!errors?.email}
+                                            color={errors?.email ? "error" : "secondary"}
                                             label="Wpisz swój email"
                                             variant="standard"
                                             placeholder="abc@xyz.pl"
@@ -238,48 +203,27 @@ export default function Contact () {
                                         />
                                     )}
                                 />
-                            )}
                         </Box>
-                        {!errors?.message ? (
-                            <Controller
-                                name="message"
-                                id="message"
-                                control={control}
-                                render={() => (
-                                    <TextField
-                                        label="Wpisz swoją wiadomość"
-                                        multiline
-                                        rows={4}
-                                        variant="standard"
-                                        placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                                        color="secondary"
-                                        className={classes.multilineInput}
-                                        {...register("message")}
-                                        {...message}
-                                    />
-                                )}
-                            />
-                        ) : (
-                            <Controller
-                                name="message"
-                                id="message"
-                                control={control}
-                                render={() => (
-                                    <TextField
-                                        error
-                                        label="Wpisz swoją wiadomość"
-                                        multiline
-                                        rows={4}
-                                        variant="standard"
-                                        placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                                        helperText={errors?.message?.message}
-                                        className={classes.multilineInput}
-                                        {...register("message")}
-                                        {...message}
-                                    />
-                                )}
-                            />
-                        )}
+                        <Controller
+                            name="message"
+                            id="message"
+                            control={control}
+                            render={() => (
+                                <TextField
+                                    error={!!errors?.message}
+                                    color={errors?.message ? "error" : "secondary"}
+                                    label="Wpisz swoją wiadomość"
+                                    multiline
+                                    rows={4}
+                                    variant="standard"
+                                    placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                                    helperText={errors?.message?.message}
+                                    className={classes.multilineInput}
+                                    {...register("message")}
+                                    {...message}
+                                />
+                            )}
+                        />
                         <Box style={{
                             display: "flex",
                             justifyContent: "space-between",
@@ -294,7 +238,7 @@ export default function Contact () {
                                 />
                                 {verifiedError ? (
                                     <Typography
-                                        variant="body2"
+                                        variant="caption"
                                         color="error"
                                     >
                                         Potwierdź że nie jesteś robotem

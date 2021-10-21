@@ -69,209 +69,112 @@ export default function Step4 () {
                             <Typography className={classes.formHead} style={{fontWeight: 600}}>Adres odbioru:</Typography>
                             <Box className={classes.step4SingleFormBox}>
                                 <CustomTypography style={{marginRight: 24}}>Ulica</CustomTypography>
-                                {errors?.street ? (
-                                    <Controller
-                                        name="street"
-                                        control={control}
-                                        render={() => (
-                                            <TextField
-                                                error
-                                                size="small"
-                                                className={classes.formInput}
-                                                {...register("street")}
-                                                {...street}
-                                            />
-                                        )}
-                                    />
-                                ) : (
-                                    <Controller
-                                        name="street"
-                                        control={control}
-                                        render={() => (
-                                            <TextField
-                                                size="small"
-                                                color="secondary"
-                                                className={classes.formInput}
-                                                {...register("street")}
-                                                {...street}
-                                            />
-                                        )}
-                                    />
-                                )}
-
+                                <Controller
+                                    name="street"
+                                    control={control}
+                                    render={() => (
+                                        <TextField
+                                            error={!!errors?.street}
+                                            color={errors?.street ? "error" : "secondary"}
+                                            size="small"
+                                            className={classes.formInput}
+                                            {...register("street")}
+                                            {...street}
+                                        />
+                                    )}
+                                />
                             </Box>
                             <Box className={classes.step4SingleFormBox}>
                                 <CustomTypography style={{marginRight: 24}}>Miasto</CustomTypography>
-                                {errors?.city ? (
-                                    <Controller
-                                        name="city"
-                                        control={control}
-                                        render={() => (
-                                            <TextField
-                                                error
-                                                size="small"
-                                                className={classes.formInput}
-                                                {...register("city")}
-                                                {...city}
-                                            />
-                                        )}
-                                    />
-                                ) : (
-                                    <Controller
-                                        name="city"
-                                        control={control}
-                                        render={() => (
-                                            <TextField
-                                                size="small"
-                                                color="secondary"
-                                                className={classes.formInput}
-                                                {...register("city")}
-                                                {...city}
-                                            />
-                                        )}
-                                    />
-                                )}
+                                <Controller
+                                    name="city"
+                                    control={control}
+                                    render={() => (
+                                        <TextField
+                                            error={!!errors?.city}
+                                            color={errors?.city ? "error" : "secondary"}
+                                            size="small"
+                                            className={classes.formInput}
+                                            {...register("city")}
+                                            {...city}
+                                        />
+                                    )}
+                                />
                             </Box>
                             <Box className={classes.step4SingleFormBox}>
                                 <CustomTypography style={{marginRight: 24}}>Kod<br/> pocztowy</CustomTypography>
-                                {errors?.postcode ? (
-                                    <Controller
-                                        name="postcode"
-                                        control={control}
-                                        render={() => (
-                                            <TextField
-                                                error
-                                                size="small"
-                                                className={classes.formInput}
-                                                {...register("postcode")}
-                                                {...postcode}
-                                            />
-                                        )}
-                                    />
-                                ) : (
-                                    <Controller
-                                        name="postcode"
-                                        control={control}
-                                        render={() => (
-                                            <TextField
-                                                size="small"
-                                                color="secondary"
-                                                className={classes.formInput}
-                                                {...register("postcode")}
-                                                {...postcode}
-                                            />
-                                        )}
-                                    />
-                                )}
+                                <Controller
+                                    name="postcode"
+                                    control={control}
+                                    render={() => (
+                                        <TextField
+                                            error={!!errors?.postcode}
+                                            color={errors?.postcode ? "error" : "secondary"}
+                                            size="small"
+                                            className={classes.formInput}
+                                            {...register("postcode")}
+                                            {...postcode}
+                                        />
+                                    )}
+                                />
                             </Box>
                             <Box className={classes.step4SingleFormBox}>
                                 <CustomTypography style={{marginRight: 24}}>Numer<br/> telefonu</CustomTypography>
-                                {errors?.phoneNumber ? (
-                                    <Controller
-                                        name="phoneNumber"
-                                        control={control}
-                                        render={() => (
-                                            <TextField
-                                                error
-                                                size="small"
-                                                className={classes.formInput}
-                                                {...register("phoneNumber")}
-                                                {...phoneNumber}
-                                            />
-                                        )}
-                                    />
-                                ) : (
-                                    <Controller
-                                        name="phoneNumber"
-                                        control={control}
-                                        render={() => (
-                                            <TextField
-                                                size="small"
-                                                color="secondary"
-                                                className={classes.formInput}
-                                                {...register("phoneNumber")}
-                                                {...phoneNumber}
-                                            />
-                                        )}
-                                    />
-                                )}
+                                <Controller
+                                    name="phoneNumber"
+                                    control={control}
+                                    render={() => (
+                                        <TextField
+                                            error={!!errors?.phoneNumber}
+                                            color={errors?.phoneNumber ? "error" : "secondary"}
+                                            size="small"
+                                            className={classes.formInput}
+                                            {...register("phoneNumber")}
+                                            {...phoneNumber}
+                                        />
+                                    )}
+                                />
                             </Box>
                         </Box>
                         <Box style={{width: "100%", maxWidth: 350}}>
                             <Typography className={classes.formHead} style={{fontWeight: 600}}>Termin odbioru:</Typography>
                             <Box className={classes.step4SingleFormBox}>
                                 <CustomTypography style={{marginRight: 24}}>Data</CustomTypography>
-                                {errors?.date ? (
-                                    <Controller
-                                        name="date"
-                                        control={control}
-                                        render={() => (
-                                            <TextField
-                                                error
-                                                type="date"
-                                                size="small"
-                                                className={classes.formInput}
-                                                style={{width: 240}}
-                                                {...register("date")}
-                                                {...date}
-                                            />
-                                        )}
-                                    />
-                                ) : (
-                                    <Controller
-                                        name="date"
-                                        control={control}
-                                        render={() => (
-                                            <TextField
-                                                type="date"
-                                                size="small"
-                                                color="secondary"
-                                                className={classes.formInput}
-                                                style={{width: 240}}
-                                                {...register("date")}
-                                                {...date}
-                                            />
-                                        )}
-                                    />
-                                )}
-
+                                <Controller
+                                    name="date"
+                                    control={control}
+                                    render={() => (
+                                        <TextField
+                                            error={!!errors?.date}
+                                            color={errors?.date ? "error" : "secondary"}
+                                            type="date"
+                                            size="small"
+                                            className={classes.formInput}
+                                            style={{width: 240}}
+                                            {...register("date")}
+                                            {...date}
+                                        />
+                                    )}
+                                />
                             </Box>
                             <Box className={classes.step4SingleFormBox}>
                                 <CustomTypography style={{marginRight: 24}}>Godzina</CustomTypography>
-                                {errors?.time ? (
-                                    <Controller
-                                        name="time"
-                                        control={control}
-                                        render={() => (
-                                            <TextField
-                                                error
-                                                type="time"
-                                                size="small"
-                                                className={classes.formInput}
-                                                style={{width: 240}}
-                                                {...register("time")}
-                                                {...time}
-                                            />
-                                        )}
-                                    />
-                                ) : (
-                                    <Controller
-                                        name="time"
-                                        control={control}
-                                        render={() => (
-                                            <TextField
-                                                type="time"
-                                                size="small"
-                                                color="secondary"
-                                                className={classes.formInput}
-                                                style={{width: 240}}
-                                                {...register("time")}
-                                                {...time}
-                                            />
-                                        )}
-                                    />
-                                )}
-
+                                <Controller
+                                    name="time"
+                                    control={control}
+                                    render={() => (
+                                        <TextField
+                                            error={!!errors?.time}
+                                            color={errors?.time ? "error" : "secondary"}
+                                            type="time"
+                                            size="small"
+                                            className={classes.formInput}
+                                            style={{width: 240}}
+                                            {...register("time")}
+                                            {...time}
+                                        />
+                                    )}
+                                />
                             </Box>
                             <Box className={classes.step4SingleFormBox} style={{marginTop: 37}}>
                                 <CustomTypography style={{marginRight: 24}}>Uwagi<br/> dla kuriera</CustomTypography>

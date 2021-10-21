@@ -54,9 +54,6 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center",
         alignItems: "center"
     },
-    errorText: {
-        color: theme.palette.error.main,
-    },
     btnBox: {
         maxWidth: 550,
         width: "100%",
@@ -67,6 +64,19 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const schema = yup.object({
+    email: yup
+        .string()
+        .email("Wprowadź poprawny email")
+        .max(50, "Maksymalna długość 50 znaków")
+        .required("Wprowadź email"),
+    password: yup
+        .string()
+        .required("Wprowadź hasło")
+}).required()
+
+
+
 export default function Login () {
     const classes = useStyles();
     const history = useHistory();
@@ -74,18 +84,6 @@ export default function Login () {
     const [loginEmail] = useInput("");
     const [loginPassword] = useInput("");
     const [notSentErr, setNotSentErr] = useState(false);
-
-    const schema = yup.object({
-        email: yup
-            .string()
-            .email("Wprowadź poprawny email")
-            .max(50, "Maksymalna długość 50 znaków")
-            .required("Wprowadź email"),
-        password: yup
-            .string()
-            .required("Wprowadź hasło")
-    }).required()
-
     const {  control, register, formState: { errors }, handleSubmit } = useForm({
         resolver: yupResolver(schema)
     });
@@ -115,84 +113,49 @@ export default function Login () {
                 <CardMedia component="img" image={Decoration} className={classes.decoration}/>
                 <form className={classes.form} onSubmit={handleSubmit(signIn)}>
                     <Box className={classes.formBox} >
-                        {!errors?.email ? (
-                            <Controller
-                                id="loginEmail"
-                                name="loginEmail"
-                                control={control}
-                                render={() => (
-                                    <TextField
-                                        color="secondary"
-                                        label="Email"
-                                        variant="standard"
-                                        className={classes.input}
-                                        style={{marginTop: 30}}
-                                        {...register("email")}
-                                        {...loginEmail}
-                                    />
-                                )}
-                            />
-                        ) : (
-                            <Controller
-                                id="loginEmail"
-                                name="loginEmail"
-                                control={control}
-                                render={() => (
-                                    <TextField
-                                        error
-                                        label="Email"
-                                        variant="standard"
-                                        helperText={errors?.email?.message}
-                                        className={classes.input}
-                                        style={{marginTop: 30}}
-                                        {...register("email")}
-                                        {...loginEmail}
-                                    />
-                                )}
-                            />
-                        )}
-                        {!errors?.password ? (
-                            <Controller
-                                id="loginPassword"
-                                name="loginPassword"
-                                control={control}
-                                render={() => (
-                                    <TextField
-                                        color="secondary"
-                                        type="password"
-                                        label="Hasło"
-                                        variant="standard"
-                                        className={classes.input}
-                                        style={{marginBottom: 30}}
-                                        {...register("password")}
-                                        {...loginPassword}
-                                    />
-                                )}
-                            />
-                        ) : (
-                            <Controller
-                                id="loginPassword"
-                                name="loginPassword"
-                                control={control}
-                                render={() => (
-                                    <TextField
-                                        error
-                                        type="password"
-                                        label="Hasło"
-                                        variant="standard"
-                                        helperText={errors?.password?.message}
-                                        className={classes.input}
-                                        style={{marginBottom: 30}}
-                                        {...register("password")}
-                                        {...loginPassword}
-                                    />
-                                )}
-                            />
-                        )}
+                        <Controller
+                            name="loginEmail"
+                            control={control}
+                            render={() => (
+                                <TextField
+                                    error={!!errors?.email}
+                                    color={errors?.email ? "error" : "secondary"}
+                                    label="Email"
+                                    variant="standard"
+                                    helperText={errors?.email?.message}
+                                    className={classes.input}
+                                    style={{marginTop: 30}}
+                                    {...register("email")}
+                                    {...loginEmail}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name="loginPassword"
+                            control={control}
+                            render={() => (
+                                <TextField
+                                    error={!!errors?.password}
+                                    color={errors?.password ? "error" : "secondary"}
+                                    type="password"
+                                    label="Hasło"
+                                    variant="standard"
+                                    helperText={errors?.password?.message}
+                                    className={classes.input}
+                                    style={{marginBottom: 30}}
+                                    {...register("password")}
+                                    {...loginPassword}
+                                />
+                            )}
+                        />
                     </Box>
                     <Box className={classes.errorBox}>
                         {notSentErr ? (
-                            <Typography className={classes.errorText}>Nie poprawny email lub hasło</Typography>
+                            <Typography
+                                variant="caption"
+                                color="error"
+                            >
+                                Nie poprawny email lub hasło</Typography>
                         ) : null
                         }
                     </Box>

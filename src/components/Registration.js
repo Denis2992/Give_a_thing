@@ -56,9 +56,6 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center",
         alignItems: "center"
     },
-    errorText: {
-        color: theme.palette.error.main,
-    },
     captchaBtn: {
         display:"flex",
         flexDirection: "column",
@@ -76,6 +73,22 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const schema = yup.object({
+    email: yup
+        .string()
+        .email("Wprowadź poprawny email")
+        .max(50, "Maksymalna długość 50 znaków")
+        .required("Wprowadź email"),
+    password: yup
+        .string()
+        .min(6, "Minimalna długość 6 znaków")
+        .required("Wprowadź hasło"),
+    confPassword: yup
+        .string()
+        .required("Powtórz hasło")
+        .oneOf([yup.ref("password"), null], "Hasła maja byc jednakowe")
+}).required();
+
 export default function Login () {
     const classes = useStyles();
     const firebaseInstance = getFirebase();
@@ -86,31 +99,13 @@ export default function Login () {
     const [notSentError, setNotSendError] = useState(false);
     const [verified, setVerified] = useState(false);
     const [verifiedError, setVerifiedError] = useState(false);
-    const recaptchaRef = React.createRef();
+    const {  control, register, formState: { errors }, handleSubmit } = useForm({
+        resolver: yupResolver(schema)
+    });
 
     const onChange = () => {
         setVerified(true);
     }
-
-    const schema = yup.object({
-        email: yup
-            .string()
-            .email("Wprowadź poprawny email")
-            .max(50, "Maksymalna długość 50 znaków")
-            .required("Wprowadź email"),
-        password: yup
-            .string()
-            .min(6, "Minimalna długość 6 znaków")
-            .required("Wprowadź hasło"),
-        confPassword: yup
-            .string()
-            .required("Powtórz hasło")
-            .oneOf([yup.ref("password"), null], "Hasła maja byc jednakowe")
-    }).required();
-
-    const {  control, register, formState: { errors }, handleSubmit } = useForm({
-        resolver: yupResolver(schema)
-    });
 
     const signUp = async () => {
 
@@ -141,133 +136,82 @@ export default function Login () {
                 <CustomCardMedia component="img" image={Decoration} className={classes.decoration}/>
                 <form className={classes.form} onSubmit={handleSubmit(signUp)}>
                     <Box className={classes.formBox}>
-                        {!errors?.email ? (
-                            <Controller
-                                id="loginEmail"
-                                name="loginEmail"
-                                control={control}
-                                render={() => (
-                                    <TextField
-                                        color="secondary"
-                                        label="Email"
-                                        variant="standard"
-                                        className={classes.input}
-                                        style={{marginTop: 30}}
-                                        {...register("email")}
-                                        {...regEmail}
-                                    />
-                                )}
-                            />
-                        ) : (
-                            <Controller
-                                id="loginEmail"
-                                name="loginEmail"
-                                control={control}
-                                render={() => (
-                                    <TextField
-                                        error
-                                        label="Email"
-                                        variant="standard"
-                                        helperText={errors?.email?.message}
-                                        className={classes.input}
-                                        style={{marginTop: 30}}
-                                        {...register("email")}
-                                        {...regEmail}
-                                    />
-                                )}
-                            />
-                        )}
-                        {!errors?.password ? (
-                            <Controller
-                                id="regPassword"
-                                name="regPassword"
-                                control={control}
-                                render={() => (
-                                    <TextField
-                                        color="secondary"
-                                        label="Hasło"
-                                        type="password"
-                                        variant="standard"
-                                        className={classes.input}
-                                        {...register("password")}
-                                        {...regPassword}
-                                    />
-                                )}
-                            />
-                        ) : (
-                            <Controller
-                                id="regPassword"
-                                name="regPassword"
-                                control={control}
-                                render={() => (
-                                    <TextField
-                                        error
-                                        label="Hasło"
-                                        type="password"
-                                        variant="standard"
-                                        helperText={errors?.password?.message}
-                                        className={classes.input}
-                                        {...register("password")}
-                                        {...regPassword}
-                                    />
-                                )}
-                            />
-                        )}
-                        {!errors?.confPassword ? (
-                            <Controller
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                control={control}
-                                render={() => (
-                                    <TextField
-                                        color="secondary"
-                                        label="Powtórz hasło"
-                                        type="password"
-                                        variant="standard"
-                                        className={classes.input}
-                                        style={{marginBottom: 30}}
-                                        {...register("confPassword")}
-                                        {...confirmPassword}
-                                    />
-                                )}
-                            />
-                        ) : (
-                            <Controller
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                control={control}
-                                render={() => (
-                                    <TextField
-                                        error
-                                        label="Powtórz hasło"
-                                        type="password"
-                                        variant="standard"
-                                        helperText={errors?.confPassword?.message}
-                                        className={classes.input}
-                                        style={{marginBottom: 30}}
-                                        {...register("confPassword")}
-                                        {...confirmPassword}
-                                    />
-                                )}
-                            />
-                        )}
+                        <Controller
+                            id="loginEmail"
+                            name="loginEmail"
+                            control={control}
+                            render={() => (
+                                <TextField
+                                    error={!!errors?.email}
+                                    color={errors?.email ? "error" : "secondary"}
+                                    label="Email"
+                                    variant="standard"
+                                    helperText={errors?.email?.message}
+                                    className={classes.input}
+                                    style={{marginTop: 30}}
+                                    {...register("email")}
+                                    {...regEmail}
+                                />
+                            )}
+                        />
+                        <Controller
+                            id="regPassword"
+                            name="regPassword"
+                            control={control}
+                            render={() => (
+                                <TextField
+                                    error={!!errors?.password}
+                                    color={errors?.password ? "error" : "secondary"}
+                                    label="Hasło"
+                                    type="password"
+                                    variant="standard"
+                                    helperText={errors?.password?.message}
+                                    className={classes.input}
+                                    {...register("password")}
+                                    {...regPassword}
+                                />
+                            )}
+                        />
+                        <Controller
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            control={control}
+                            render={() => (
+                                <TextField
+                                    error={!!errors?.confPassword}
+                                    color={errors?.confPassword ? "error" : "secondary"}
+                                    label="Powtórz hasło"
+                                    type="password"
+                                    variant="standard"
+                                    helperText={errors?.confPassword?.message}
+                                    className={classes.input}
+                                    style={{marginBottom: 30}}
+                                    {...register("confPassword")}
+                                    {...confirmPassword}
+                                />
+                            )}
+                        />
                     </Box>
                     <Box className={classes.errorBox}>
                         {notSentError ? (
-                            <Typography className={classes.errorText}>Email jest zajęty</Typography>
+                            <Typography
+                                variant="caption"
+                                color="error"
+                            >
+                                Email jest zajęty
+                            </Typography>
                         ) : null
                         }
                     </Box>
                     <Box className={classes.captchaBtn}>
                         <Box style={{marginBottom: 20}}>
                             <ReCAPTCHA
-                                ref={recaptchaRef}
                                 sitekey="6LdP2LscAAAAAChLhBfXBGbZMPEAUAksy2woB-5n"
                                 onChange={onChange}
                             />
                             {verifiedError ? (
                                 <Typography
-                                    variant="body2"
+                                    variant="caption"
                                     color="error"
                                 >
                                     Potwierdź że nie jesteś robotem

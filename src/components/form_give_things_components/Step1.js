@@ -48,6 +48,13 @@ function BpRadio(props) {
     );
 }
 
+const schema = yup.object({
+    other: yup
+        .string()
+        .min(3, "Pole zawierać minimum 3 znaki")
+        .matches(/^[A-Za-z]+$/i, "Pole nie może mieć liczb")
+}).required();
+
 export default function Step1 () {
     const classes = useStyles();
     const {
@@ -56,21 +63,12 @@ export default function Step1 () {
         handleNextStep,
         newOptionStep1, setNewOptionStep1,
     } = useContext(FormGiveThingsContext);
-
     const [error, setError] = useState(false);
-
-    const schema = yup.object({
-        other: yup
-            .string()
-            .min(3, "Pole zawierać minimum 3 znaki")
-            .matches(/^[A-Za-z]+$/i, "Pole nie może mieć liczb")
-    }).required();
-
     const {  control, register, formState: { errors }, handleSubmit } = useForm({
         resolver: yupResolver(schema)
     });
 
-    //!!!!!!!!!!!!!!!!!
+
     const addNewCategory = () => {
         setCategory(otherCategory);
         setNewOptionStep1(true);
@@ -149,44 +147,24 @@ export default function Step1 () {
                     </FormControl>
                     {category === "inne" ? (
                         <form onSubmit={handleSubmit(addNewCategory)}>
-                            {!errors?.other ? (
-                                <Controller
-                                    name="other"
-                                    id="other"
-                                    control={control}
-                                    render={() => (
-                                        <TextField
-                                            color="secondary"
-                                            size="small"
-                                            style={{width: 300, marginRight: 30}}
-                                            label="Inne"
-                                            helperText="Napisz, co chcesz oddać"
-                                            {...register("other")}
-                                            value={otherCategory}
-                                            onChange={e => setOtherCategory(e.target.value)}
-                                        />
-                                    )}
-                                />
-                            ) : (
-                                <Controller
-                                    name="other"
-                                    id="other"
-                                    control={control}
-                                    render={() => (
-                                        <TextField
-                                            error
-                                            size="small"
-                                            style={{width: 300, marginRight: 30}}
-                                            label="Inne"
-                                            helperText={errors?.other?.message}
-                                            {...register("other")}
-                                            value={otherCategory}
-                                            onChange={e => setOtherCategory(e.target.value)}
-
-                                        />
-                                    )}
-                                />
-                            )}
+                            <Controller
+                                name="other"
+                                id="other"
+                                control={control}
+                                render={() => (
+                                    <TextField
+                                        error={!!errors?.other}
+                                        color={errors?.other ? "error" : "secondary"}
+                                        size="small"
+                                        style={{width: 300, marginRight: 30}}
+                                        label="Inne"
+                                        helperText={errors?.other?.message}
+                                        value={otherCategory}
+                                        {...register("other")}
+                                        onChange={e => setOtherCategory(e.target.value)}
+                                    />
+                                )}
+                            />
                             <FormButton
                                 style={{height: 43, width: 90}}
                                 type="submit"
@@ -198,7 +176,7 @@ export default function Step1 () {
                     {error ? (
                         <Alert
                             severity="warning"
-                            style={{maxWidth: 300, backgroundColor: "transparent", padding: "5px 0"}}
+                            style={{maxWidth: 480, backgroundColor: "transparent", padding: "5px 0"}}
                         >
                             Zaznacz lub napisz co chcesz oddać
                         </Alert>

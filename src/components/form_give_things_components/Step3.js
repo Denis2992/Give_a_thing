@@ -269,7 +269,7 @@ export default function Step3 () {
                         <Alert
                             severity="warning"
                             style={{
-                                maxWidth: 300,
+                                maxWidth: 450,
                                 height: 20,
                                 backgroundColor: "transparent",
                                 padding: 0,
