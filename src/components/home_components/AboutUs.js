@@ -10,7 +10,10 @@ const useStyles = makeStyles((theme) => ({
     mainBox: {
         display: "flex",
         overflow: "hidden",
-        margin: theme.spacing(2)
+        color: theme.palette.text.primary,
+        [theme.breakpoints.down(1000)]: {
+            flexWrap: "wrap"
+        },
     },
     infoBox: {
         maxWidth: 750,
@@ -19,10 +22,22 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        padding: theme.spacing(2),
+        [theme.breakpoints.down(1000)]: {
+            maxWidth: "initial",
+            width: "100%"
+        },
     },
     head: {
-        color: theme.palette.text.primary
+        [theme.breakpoints.down(1270)]: {
+            display: "none"
+        },
+    },
+    headMobile: {
+        [theme.breakpoints.up(1270)]: {
+            display: "none"
+        },
     },
     decoration: {
         width: 250,
@@ -32,17 +47,35 @@ const useStyles = makeStyles((theme) => ({
     description: {
         maxWidth: 570,
         textAlign: "center",
-        color: theme.palette.text.primary
+        [theme.breakpoints.down(1270)]: {
+            display: "none"
+        },
+    },
+    descriptionMobile: {
+        textAlign: "center",
+        [theme.breakpoints.up(1270)]: {
+            display: "none"
+        },
     },
     signature: {
         width: 210,
         height: 150,
-        margin: "40px -300px 0 0"
     },
     image: {
         maxWidth: 950,
-        marginRight: "-200px"
-    }
+        marginRight: "-200px",
+        [theme.breakpoints.down(1370)]: {
+            maxWidth: 850
+        },
+        [theme.breakpoints.down(1270)]: {
+            maxWidth: 750
+        },
+        [theme.breakpoints.down(1000)]: {
+            maxWidth: "initial",
+            width: "100%"
+        },
+    },
+
 }));
 
 export default function AboutUs () {
@@ -52,13 +85,21 @@ export default function AboutUs () {
         <Box className={classes.mainBox} name="AboutUs">
             <Box className={classes.infoBox}>
                 <Typography variant="h4" className={classes.head}>O nas</Typography>
+                <Typography variant="h5" className={classes.headMobile}>O nas</Typography>
                 <CustomCardMedia component="img" image={Decoration} className={classes.decoration}/>
                 <Typography variant="h5" className={classes.description}>
                     Nori grape silver beet broccoli kombu beet greens fava
                     bean potato quandong celery. Bunya nuts black-eyed pea
                     prairie turnip leek lentil turnip greens parsnip.
                 </Typography>
-                <CustomCardMedia component="img" image={Signature} className={classes.signature}/>
+                <Typography variant="h6" className={classes.descriptionMobile}>
+                    Nori grape silver beet broccoli kombu beet greens fava
+                    bean potato quandong celery. Bunya nuts black-eyed pea
+                    prairie turnip leek lentil turnip greens parsnip.
+                </Typography>
+                <Box style={{display: "flex", justifyContent:"flex-end", width: "100%", margin: "20px 100px 0 0" }}>
+                    <CustomCardMedia component="img" image={Signature} className={classes.signature}/>
+                </Box>
             </Box>
             <CardMedia component="img" image={PeopleImage} className={classes.image}/>
         </Box>

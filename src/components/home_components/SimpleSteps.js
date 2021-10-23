@@ -9,6 +9,7 @@ import {makeStyles} from "@mui/styles";
 import {useHistory} from "react-router-dom";
 import CustomCardMedia from "../custom_elements/CustomCardMedia";
 import {CurrentUserContext} from "../../App";
+import CustomButton from "../custom_elements/CustomButton";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
@@ -16,39 +17,78 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         alignItems: "center",
         margin: theme.spacing(7, 0),
-        color: theme.palette.text.primary
+        color: theme.palette.text.primary,
+        [theme.breakpoints.down(1270)]: {
+            margin: theme.spacing(3, 0, 5, 0)
+        },
+
     },
     decoration: {
         width: 250,
         height: 30,
         margin: theme.spacing(4, 0)
     },
+    head: {
+        [theme.breakpoints.down(1270)]: {
+            display: "none"
+        },
+    },
+    headMobile: {
+        [theme.breakpoints.up(1270)]: {
+            display: "none"
+        },
+    },
     boxContainer: {
         backgroundColor: theme.palette.secondary.light,
         width: "100%",
         display: "flex",
         justifyContent: "center",
-        marginBottom: theme.spacing(4)
+        marginBottom: theme.spacing(4),
+        [theme.breakpoints.down(750)]: {
+            display: "none"
+        },
+    },
+    boxContainerMobile: {
+        backgroundColor: theme.palette.secondary.light,
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-around",
+        padding: theme.spacing(2,0),
+        marginBottom: theme.spacing(2),
+        [theme.breakpoints.up(750)]: {
+            display: "none"
+        },
     },
     stepsBox: {
         display: "flex",
         justifyContent: "space-around",
         maxWidth: 1200,
         width: "100%",
-        backgroundColor: theme.palette.secondary.light
+
     },
     singleStep: {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        backgroundColor: theme.palette.secondary.light,
         borderRadius: 0,
         width: 180,
-        margin: theme.spacing(8, 0, 4, 0)
+        margin: theme.spacing(8, 2, 4, 2)
+    },
+    singleStepMobile: {
+        margin: theme.spacing(4, 2),
+        maxWidth: 50,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        textAlign: "center"
     },
     icon: {
         width: 70,
         height: 70,
+    },
+    iconMobile: {
+        width: 50,
+        height: 50,
     },
     stepContent: {
         display: "flex",
@@ -64,7 +104,15 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         "&:hover": {
             boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"
-        }
+        },
+        [theme.breakpoints.down(750)]: {
+            display: "none"
+        },
+    },
+    btnMobile: {
+        [theme.breakpoints.up(750)]: {
+            display: "none"
+        },
     }
 }));
 
@@ -75,7 +123,8 @@ export default function SimpleSteps () {
 
     return (
         <Box className={classes.mainBox} name="SimpleSteps">
-            <Typography variant="h4">Wystarczą 4 proste kroki</Typography>
+            <Typography variant="h4" className={classes.head}>Wystarczą 4 proste kroki</Typography>
+            <Typography variant="h5" className={classes.headMobile}>Wystarczą 4 proste kroki</Typography>
             <CustomCardMedia component="img" image={Decoration} className={classes.decoration}/>
             <Box className={classes.boxContainer}>
                 <Box className={classes.stepsBox}>
@@ -113,6 +162,25 @@ export default function SimpleSteps () {
                     </Box>
                 </Box>
             </Box>
+            <Box className={classes.boxContainerMobile}>
+                <Box className={classes.singleStepMobile}>
+                    <CustomCardMedia component="img" image={Icon1} className={classes.iconMobile}/>
+                    <Typography style={{margin: "8px 0"}}>Wybierz rzeczy</Typography>
+                </Box>
+                <Box className={classes.singleStepMobile}>
+                    <CustomCardMedia component="img" image={Icon2} className={classes.iconMobile}/>
+                    <Typography style={{margin: "8px 0"}}>Spakuj je</Typography>
+                </Box>
+                <Box className={classes.singleStepMobile}>
+                    <CustomCardMedia component="img" image={Icon3} className={classes.iconMobile}/>
+                    <Typography style={{margin: "8px 0"}}>Zdecyduj komu chcesz pomóc</Typography>
+                </Box>
+                <Box className={classes.singleStepMobile}>
+                    <CustomCardMedia component="img" image={Icon4} className={classes.iconMobile}/>
+                    <Typography style={{margin: "8px 0"}}>Zamów kuriera</Typography>
+                </Box>
+
+            </Box>
             <Button
                 className={classes.btn}
                 variant="outlined"
@@ -127,6 +195,18 @@ export default function SimpleSteps () {
             >
                 ODDAJ<br/> RZECZY
             </Button>
+            <CustomButton
+                className={classes.btnMobile}
+                onClick={() => {
+                    if (currentUser) {
+                        history.push("/oddaj-rzeczy")
+                    } else {
+                        history.push("/logowanie")
+                    }
+                }}
+            >
+                Oddaj rzeczy
+            </CustomButton>
         </Box>
     );
 }

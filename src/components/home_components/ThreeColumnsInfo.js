@@ -9,10 +9,14 @@ const useStyles = makeStyles((theme) => ({
         backgroundImage: `url(${Background})`,
         display: "flex",
         justifyContent: "space-around",
-        padding: theme.spacing(4, 0, 8, 0)
+        padding: theme.spacing(4, 0, 8, 0),
+        [theme.breakpoints.down(750)]: {
+            display: "block"
+        },
     },
     singleBox: {
         maxWidth: theme.spacing(50),
+        margin: theme.spacing(0, 2),
         textAlign: "center"
     },
     number: {
@@ -21,11 +25,14 @@ const useStyles = makeStyles((theme) => ({
     },
     head: {
         color: theme.palette.text.primary,
-        padding: theme.spacing(2,0,3,0)
+        padding: theme.spacing(2,0,3,0),
     },
     description: {
         color: theme.palette.text.primary,
         fontWeight: 300,
+        [theme.breakpoints.down(750)]: {
+            marginBottom: theme.spacing(3)
+        },
     }
 }));
 
@@ -55,7 +62,7 @@ export default function ThreeColumnsInfo () {
                     className={classes.number}
                     variant="h2"
                 >7</Typography>
-                <Typography className={classes.head}>ZORGANIZOWANY ZBIÓREK</Typography>
+                <Typography className={classes.head}>ZORGANIZOWANO ZBIÓREK</Typography>
                 <Typography variant="body2" className={classes.description}>
                     Lorem ipsum dolor sit amet, consectetur adipisc Pellentesque
                     vel enim a elit viverra elementuma. Aliquam erat volutpat.

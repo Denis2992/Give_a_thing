@@ -13,6 +13,7 @@ import useInput from "../hooks/useInput";
 import getFirebase from "../firebase";
 import CustomCardMedia from "../custom_elements/CustomCardMedia";
 import ReCAPTCHA from "react-google-recaptcha";
+import {focusOnLastMenuItem} from "react-burger-menu/lib/helpers/dom";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
     whiteBox: {
         display: "flex",
+        justifyContent: "flex-end",
         backgroundColor: "rgba(255, 255, 255, 0.7)",
         height: "100%",
         width: "100%"
@@ -35,30 +37,75 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        maxWidth: 750,
+        width: "100%",
+        margin: theme.spacing(0, 2),
+        [theme.breakpoints.up(650)]: {
+            margin: theme.spacing(0, 1),
+        },
+    },
+    head: {
+        [theme.breakpoints.down(1270)]: {
+            display: "none"
+        },
+    },
+    headMobile: {
+        [theme.breakpoints.up(1270)]: {
+            display: "none"
+        },
     },
     decoration: {
         width: 250,
         height: 30,
         margin: theme.spacing(4, 0, 2, 0)
     },
+    twoInputsBox: {
+        marginBottom: 16,
+        [theme.breakpoints.down(650)]: {
+            display: "flex",
+            flexWrap: "wrap"
+        },
+    },
     singleLineInput: {
         width: 230,
         height: 80,
+        marginRight: theme.spacing(5),
+        [theme.breakpoints.down(650)]: {
+            width: "100%",
+            margin: 0
+        },
     },
     multilineInput: {
         maxWidth: 500,
         width: "100%",
         height: 150,
+
+    },
+    btnBox: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginTop: 10,
+        [theme.breakpoints.down(650)]: {
+            flexWrap: "wrap",
+            justifyContent: "center"
+        },
     },
     btn: {
         alignSelf: "flex-end",
-        margin: `${theme.spacing(0, 0, 2, 2)} !important`
+        margin: theme.spacing(0, 0, 2, 2),
+        [theme.breakpoints.down(650)]: {
+            margin: theme.spacing(2, 0),
+        },
     },
     footer: {
         backgroundColor: "rgba(255, 255, 255, 0.7)",
         display: "flex",
         justifyContent: "center",
-        paddingBottom: theme.spacing(3)
+        padding: theme.spacing(0, 2, 3, 2),
+        [theme.breakpoints.down(650)]: {
+            justifyContent: "space-between"
+        },
     },
     icons: {
         width: 30,
@@ -68,9 +115,10 @@ const useStyles = makeStyles((theme) => ({
     sentMsg: {
         color: theme.palette.success.light,
         fontWeight: 600,
-        height: 55,
+        height: 25,
         textAlign: "center",
         marginBottom: theme.spacing(1),
+
     }
 }));
 
@@ -148,15 +196,16 @@ export default function Contact () {
     return (
         <Box className={classes.mainBox} name="Contact">
             <Box className={classes.whiteBox}>
-                <div style={{width: 900, height: "100%"}} />
+
                 <Box className={classes.dataBox}>
-                    <Typography variant="h4">Skontaktuj się z nami</Typography>
+                    <Typography variant="h4" className={classes.head}>Skontaktuj się z nami</Typography>
+                    <Typography variant="h5" className={classes.headMobile}>Skontaktuj się z nami</Typography>
                     <CustomCardMedia component="img" image={Decoration} className={classes.decoration}/>
                     {messageStatus ? (
                         <Typography
                             className={classes.sentMsg}
                         >
-                            Wiadomość została wysłana!<br/>Wkrótce się skontaktujemy
+                            Wiadomość została wysłana!
                         </Typography>
                     ) : (
                         <div className={classes.sentMsg}/>
@@ -165,7 +214,7 @@ export default function Contact () {
                         style={{display: "flex", flexDirection: "column"}}
                         onSubmit={handleSubmit(submitForm)}
                     >
-                        <Box style={{marginBottom: 16}}>
+                        <Box className={classes.twoInputsBox}>
                             <Controller
                                     name="name"
                                     id="name"
@@ -179,7 +228,6 @@ export default function Contact () {
                                             variant="standard"
                                             helperText={errors?.name?.message}
                                             className={classes.singleLineInput}
-                                            style={{marginRight: 32}}
                                             {...register("name")}
                                             {...name}
                                         />
@@ -198,6 +246,7 @@ export default function Contact () {
                                             placeholder="abc@xyz.pl"
                                             className={classes.singleLineInput}
                                             helperText={errors?.email?.message}
+                                            style={{margin: 0}}
                                             {...register("email")}
                                             {...email}
                                         />
@@ -224,12 +273,7 @@ export default function Contact () {
                                 />
                             )}
                         />
-                        <Box style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            marginTop: 10
-                        }}>
+                        <Box className={classes.btnBox}>
                             <Box>
                                 <ReCAPTCHA
                                     ref={recaptchaRef}
