@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         display:"flex",
         flexDirection: "column",
-        alignItems: "center"
+        alignItems: "center",
+        margin: theme.spacing(0, 2)
     },
     formBox: {
         display: "flex",
@@ -43,6 +44,8 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 380,
         height: "100%",
         width: "100%",
+
+
     },
     input: {
         maxWidth: 250,
@@ -60,7 +63,11 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        margin: theme.spacing(0, 2, 2, 2)
+        margin: theme.spacing(0, 2, 2, 2),
+        [theme.breakpoints.down(600)]: {
+            flexDirection: "column-reverse",
+            justifyContent: "center"
+        },
     }
 }));
 
@@ -161,12 +168,17 @@ export default function Login () {
                     </Box>
                     <Box className={classes.btnBox}>
                         <Typography
-                            style={{fontWeight: 300, cursor: "pointer"}}
+                            style={{fontWeight: 300, cursor: "pointer", marginBottom: 24}}
                             onClick={() => history.push("/rejestracja")}
                         >
                             Załóż konto
                         </Typography>
-                        <CustomButton type="submit">Zaloguj się</CustomButton>
+                        <CustomButton
+                            type="submit"
+                            style={{marginBottom: 24}}
+                        >
+                            Zaloguj się
+                        </CustomButton>
                     </Box>
                 </form>
             </Box>

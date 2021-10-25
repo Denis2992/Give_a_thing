@@ -282,7 +282,7 @@ export default function Step3 () {
                         <div style={{height: 20, marginTop: "-5px"}}/>
                     )}
                 </Box>
-                <Box>
+                <Box style={{display: "flex"}}>
                     <FormButton style={{marginRight: 50}} onClick={handlePreviousStep}>Wstecz</FormButton>
                     <FormButton type="submit">Dalej</FormButton>
                 </Box>

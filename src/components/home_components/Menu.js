@@ -3,7 +3,10 @@ import {
     List,
     ListItem,
     Box,
-    Typography, Button, Drawer, ListItemText, Divider
+    Typography,
+    Button,
+    Drawer,
+    Divider
 } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import {useHistory} from "react-router-dom";
@@ -62,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
     userName: {
         color: theme.palette.primary.contrastText,
         fontSize: 14,
-        minWidth: 200,
         display: "flex",
         alignItems: "center",
         justifyContent: "center"
@@ -107,9 +109,7 @@ export default function Menu () {
 
 
     const menuList = (anchor) => (
-        <Box
-
-        >
+        <Box>
             <List>
                 <ListItem
                     className={classes.menuItem}
@@ -222,7 +222,7 @@ export default function Menu () {
                 <List className={classes.logRegList}>
                     {currentUser ? (
                         <>
-                            <Typography className={classes.userName}>Cześć {currentUser}</Typography>
+                            <Typography className={classes.userName}>Cześć, {currentUser}</Typography>
                             <ListItem
                                 className={classes.logRegListItem}
                                 style={{width: 100}}

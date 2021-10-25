@@ -70,7 +70,7 @@ export default function Step2 () {
                             </Alert>
                         ) : null}
                     </Box>
-                    <Box>
+                    <Box style={{display: "flex"}}>
                         <FormButton
                             style={{marginRight: 50}}
                             onClick={() => {

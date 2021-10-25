@@ -1,5 +1,5 @@
 import React from "react";
-import {Typography, Box, CardMedia} from "@mui/material";
+import {Typography, Box} from "@mui/material";
 import Jersey from "../assets/Form-Hero-Image.jpg";
 import Menu from "./home_components/Menu";
 import Decoration from "../assets/Decoration.svg";
@@ -12,20 +12,56 @@ import CustomTypography from "./custom_elements/CustomTypography";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
+        maxWidth: 1500,
+        margin: "0 auto",
+        [theme.breakpoints.down(1050)]: {
+            backgroundImage: `url(${Jersey})`,
+            backgroundRepeat: "no-repeat",
+        },
+    },
+    contentBox: {
         display: "flex",
         color: theme.palette.secondary.main,
+        [theme.breakpoints.down(1050)]: {
+            justifyContent: "center",
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+        },
     },
     bgImage: {
-        maxWidth: 750,
-        objectFit: "contain"
+        maxWidth: 650,
+        backgroundSize: "cover",
+        [theme.breakpoints.down(1350)]: {
+            marginLeft: "-100px"
+        },
+        [theme.breakpoints.down(1250)]: {
+            marginLeft: "-200px"
+        },
+        [theme.breakpoints.down(1150)]: {
+            marginLeft: "-300px"
+            // display: "none"
+        },
+        [theme.breakpoints.down(1050)]: {
+            display: "none"
+        },
     },
     infoBox: {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: theme.spacing(5)
-
+        margin: theme.spacing(5, 0, 2, 0),
+    },
+    head: {
+        textAlign: "center",
+        [theme.breakpoints.down(1250)]: {
+            display: "none"
+        },
+    },
+    headMobile: {
+        textAlign: "center",
+        [theme.breakpoints.up(1250)]: {
+            display: "none"
+        },
     },
     decoration: {
         maxWidth: 250,
@@ -34,19 +70,27 @@ const useStyles = makeStyles((theme) => ({
     },
     stepsBox: {
         display: "flex",
-        margin: theme.spacing(3, 0)
+        justifyContent: "center",
+        margin: theme.spacing(3, 2),
+        [theme.breakpoints.down(600)]: {
+            flexWrap: "wrap"
+        },
     },
     singleStepBoxExternal: {
         border: `0.75px solid ${theme.palette.secondary.main}`,
         width: 130,
         height: 130,
         transform: "rotate(45deg)",
-        margin: theme.spacing(2, 1)
+        margin: theme.spacing(2, 1),
+        [theme.breakpoints.down(1250)]: {
+            width: 110,
+            height: 110,
+        },
     },
     singleStepBoxInternal: {
         transform: "rotate(-45deg)",
-        height: 120,
-        width: 120,
+        height: 110,
+        width: 110,
         textAlign: "center"
     },
     yellowBox: {
@@ -60,20 +104,22 @@ export default function GiveThings () {
     const classes = useStyles();
 
     return (
-        <Box style={{maxWidth: 1500, margin: "0 auto"}}>
-            <Box className={classes.mainBox}>
-                <CardMedia component="img" image={Jersey} className={classes.bgImage}/>
+        <Box className={classes.mainBox}>
+            <Box className={classes.contentBox}>
+                <img src={Jersey} className={classes.bgImage} alt=""/>
                 <Box>
                     <Menu />
                     <Box className={classes.infoBox}>
-                        <Typography variant="h4" style={{textAlign: "center"}}>Oddaj rzeczy, których już nie chcesz<br/> POTRZEBUJĄCYM</Typography>
+                        <Typography variant="h4" className={classes.head}>Oddaj rzeczy, których już nie chcesz<br/> POTRZEBUJĄCYM</Typography>
+                        <Typography variant="h5" className={classes.headMobile}>Oddaj rzeczy, których już nie chcesz<br/> POTRZEBUJĄCYM</Typography>
                         <CustomCardMedia component="img" image={Decoration} className={classes.decoration}/>
-                        <CustomTypography variant="h4">Wystarczą 4 proste kroki:</CustomTypography>
+                        <CustomTypography variant="h4" className={classes.head}>Wystarczą 4 proste kroki:</CustomTypography>
+                        <CustomTypography variant="h5" className={classes.headMobile}>Wystarczą 4 proste kroki:</CustomTypography>
                         <Box className={classes.stepsBox}>
                             <Box className={classes.singleStepBoxExternal}>
                                 <Box className={classes.singleStepBoxInternal}>
                                     <CustomTypography variant="h5">1</CustomTypography>
-                                    <CustomTypography>Wybierz<br/> rzeczy</CustomTypography>
+                                    <CustomTypography >Wybierz<br/> rzeczy</CustomTypography>
                                 </Box>
                             </Box>
                             <Box className={classes.singleStepBoxExternal}>

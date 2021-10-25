@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import Menu from "./Menu";
-import {CardMedia, Box, Typography, Button} from "@mui/material";
+import {Box, Typography, Button} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import HomeImage from "../../assets/Home-Hero-Image.jpg";
 import Decoration from "../../assets/Decoration.svg";
@@ -112,11 +112,7 @@ export default function Header () {
 
     return (
         <Box className={classes.boxComponent}>
-            <CardMedia
-                className={classes.img}
-                component="img"
-                image={HomeImage}
-            />
+            <img src={HomeImage} className={classes.img} alt=""/>
             <Box className={classes.headerBox}>
                 <Menu />
                 <Box className={classes.startHelp}>

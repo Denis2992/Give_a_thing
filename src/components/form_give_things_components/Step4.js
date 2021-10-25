@@ -64,7 +64,7 @@ export default function Step4 () {
             </Box>
             <form className={classes.formStep} onSubmit={handleSubmit(onSubmit)}>
                 <Box>
-                    <Box style={{display: "flex", justifyContent: "space-between", maxWidth: 800, marginTop: 20}}>
+                    <Box style={{display: "flex", justifyContent: "space-between", maxWidth: 800, marginTop: 20, flexWrap: "wrap"}}>
                         <Box style={{width: "100%", maxWidth: 350}}>
                             <Typography className={classes.formHead} style={{fontWeight: 600}}>Adres odbioru:</Typography>
                             <Box className={classes.step4SingleFormBox}>
@@ -136,7 +136,7 @@ export default function Step4 () {
                                 />
                             </Box>
                         </Box>
-                        <Box style={{width: "100%", maxWidth: 350}}>
+                        <Box style={{width: "100%", maxWidth: 350, marginBottom:20}}>
                             <Typography className={classes.formHead} style={{fontWeight: 600}}>Termin odbioru:</Typography>
                             <Box className={classes.step4SingleFormBox}>
                                 <CustomTypography style={{marginRight: 24}}>Data</CustomTypography>
@@ -150,7 +150,7 @@ export default function Step4 () {
                                             type="date"
                                             size="small"
                                             className={classes.formInput}
-                                            style={{width: 240}}
+                                            style={{width: 230}}
                                             {...register("date")}
                                             {...date}
                                         />
@@ -169,7 +169,7 @@ export default function Step4 () {
                                             type="time"
                                             size="small"
                                             className={classes.formInput}
-                                            style={{width: 240}}
+                                            style={{width: 230}}
                                             {...register("time")}
                                             {...time}
                                         />
@@ -197,12 +197,22 @@ export default function Step4 () {
                             </Box>
                         </Box>
                     </Box>
-                    <Box style={{display: "flex", justifyContent: "space-between", maxWidth: 610}}>
+                    <Box
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            maxWidth: 610,
+                            flexWrap: "wrap",
+                            "@media only screen and (max-width: 600px)": {
+                                marginTop: 20,
+                            }
+                        }}
+                    >
                         <Box>
                             {errors?.street ? (
                                 <Alert
                                     severity="error"
-                                    style={{backgroundColor: "transparent", height: 25, padding: 0}}
+                                    style={{backgroundColor: "transparent", padding: 0}}
                                 >
                                     {errors?.street?.message}
                                 </Alert>
@@ -210,7 +220,7 @@ export default function Step4 () {
                             {errors?.city ? (
                                 <Alert
                                     severity="error"
-                                    style={{backgroundColor: "transparent", height: 25, padding: 0}}
+                                    style={{backgroundColor: "transparent", padding: 0}}
                                 >
                                     {errors?.city?.message}
                                 </Alert>
@@ -218,25 +228,28 @@ export default function Step4 () {
                             {errors?.postcode ? (
                                 <Alert
                                     severity="error"
-                                    style={{backgroundColor: "transparent", height: 25, padding: 0}}
+                                    style={{
+                                        backgroundColor: "transparent",
+                                        padding: 0,
+                                    }}
                                 >
                                     {errors?.postcode?.message}
                                 </Alert>
                             ) :null}
+                        </Box>
+                        <Box>
                             {errors?.phoneNumber ? (
                                 <Alert
                                     severity="error"
-                                    style={{backgroundColor: "transparent", height: 25, padding: 0}}
+                                    style={{backgroundColor: "transparent", padding: 0}}
                                 >
                                     {errors?.phoneNumber?.message}
                                 </Alert>
                             ) : null}
-                        </Box>
-                        <Box>
                             {errors?.date ? (
                             <Alert
                                 severity="error"
-                                style={{backgroundColor: "transparent", height: 25, padding: 0}}
+                                style={{backgroundColor: "transparent", padding: 0}}
                             >
                                 {errors?.date?.message}
                             </Alert>
@@ -244,7 +257,7 @@ export default function Step4 () {
                             {errors?.time ? (
                                 <Alert
                                     severity="error"
-                                    style={{backgroundColor: "transparent", height: 25, padding: 0}}
+                                    style={{backgroundColor: "transparent", padding: 0}}
                                 >
                                     {errors?.time?.message}
                                 </Alert>
@@ -252,7 +265,7 @@ export default function Step4 () {
                             {errors?.attentions ? (
                                 <Alert
                                     severity="error"
-                                    style={{backgroundColor: "transparent", height: 25, padding: 0}}
+                                    style={{backgroundColor: "transparent", padding: 0}}
                                 >
                                     {errors?.attentions?.message}
                                 </Alert>
@@ -261,7 +274,7 @@ export default function Step4 () {
                     </Box>
                 </Box>
 
-                <Box>
+                <Box style={{display: "flex"}}>
                     <FormButton style={{marginRight: 50}} onClick={handlePreviousStep}>Wstecz</FormButton>
                     <FormButton type="submit">Dalej</FormButton>
                 </Box>

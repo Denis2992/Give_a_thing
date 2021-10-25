@@ -110,6 +110,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     btnMobile: {
+        display: "block",
         [theme.breakpoints.up(750)]: {
             display: "none"
         },

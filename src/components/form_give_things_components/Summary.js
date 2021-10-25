@@ -126,7 +126,7 @@ export default function Summary () {
                         <Typography>dla lokalizacji: {location.value}</Typography>
                     </Box>
                 </Box>
-                <Box style={{display: "flex", justifyContent: "space-between", maxWidth: 750}}>
+                <Box style={{display: "flex", justifyContent: "space-between", flexWrap: "wrap", maxWidth: 750}}>
                     <Box style={{display: "flex", flexDirection: "column"}}>
                         <Typography className={classes.formHead} style={{fontWeight: 600}}>Adres odbioru:</Typography>
                         <Box className={classes.wroteData}>
@@ -165,7 +165,7 @@ export default function Summary () {
                     </Box>
                 </Box>
             </Box>
-            <Box>
+            <Box style={{display: "flex"}}>
                 <FormButton style={{marginRight: 50}} onClick={handlePreviousStep}>Wstecz</FormButton>
                 <FormButton onClick={handleSendData}>Potwierdzam</FormButton>
             </Box>

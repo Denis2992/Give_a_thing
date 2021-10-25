@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "space-around",
         padding: theme.spacing(4, 0, 8, 0),
         [theme.breakpoints.down(750)]: {
-            display: "block"
+            flexDirection: "column",
+            alignItems: "center"
         },
     },
     singleBox: {

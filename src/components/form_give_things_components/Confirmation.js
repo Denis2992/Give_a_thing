@@ -10,7 +10,10 @@ export default function Confirmation () {
 
     return (
         <Box className={classes.confirmBox}>
-            <CustomTypography variant="h4" textAlign="center">
+            <CustomTypography variant="h4" textAlign="center" className={classes.confirmText}>
+                Dziękujemy za przesłanie formularza.<br/> Na maila prześlemy wszelkie<br/> informacje o odbiorze.
+            </CustomTypography>
+            <CustomTypography variant="h6" textAlign="center" className={classes.mobileConfirmText}>
                 Dziękujemy za przesłanie formularza.<br/> Na maila prześlemy wszelkie<br/> informacje o odbiorze.
             </CustomTypography>
             <CustomCardMedia

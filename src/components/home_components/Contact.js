@@ -13,7 +13,7 @@ import useInput from "../hooks/useInput";
 import getFirebase from "../firebase";
 import CustomCardMedia from "../custom_elements/CustomCardMedia";
 import ReCAPTCHA from "react-google-recaptcha";
-import {focusOnLastMenuItem} from "react-burger-menu/lib/helpers/dom";
+
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {

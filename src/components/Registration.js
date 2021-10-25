@@ -68,8 +68,11 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        margin: theme.spacing(0, 2, 2, 2)
-
+        margin: theme.spacing(0, 2, 2, 2),
+        [theme.breakpoints.down(600)]: {
+            flexDirection: "column-reverse",
+            justifyContent: "center"
+        },
     }
 }));
 
@@ -220,12 +223,17 @@ export default function Login () {
                         </Box>
                         <Box className={classes.btnBox}>
                             <Typography
-                                style={{fontWeight: 300, cursor: "pointer"}}
+                                style={{fontWeight: 300, cursor: "pointer", marginBottom: 24}}
                                 onClick={() => history.push("/logowanie")}
                             >
                                 Zaloguj się</Typography>
 
-                            <CustomButton type="submit">Załóż konto</CustomButton>
+                            <CustomButton
+                                type="submit"
+                                style={{marginBottom: 24}}
+                            >
+                                Załóż konto
+                            </CustomButton>
                         </Box>
                     </Box>
                 </form>

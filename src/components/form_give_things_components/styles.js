@@ -7,21 +7,35 @@ export const useStyles = makeStyles((theme) => ({
         backgroundImage: `url(${FormBackground})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
-        color: theme.palette.secondary.main
+        color: theme.palette.secondary.main,
+        [theme.breakpoints.down(850)]: {
+            backgroundImage: "none",
+            backgroundColor: theme.palette.secondary.light
+        },
     },
     step: {
         padding: "20px 80px 40px 80px",
         height: 600,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        [theme.breakpoints.down(850)]: {
+            height: "initial",
+        },
+        [theme.breakpoints.down(700)]: {
+            padding: "20px 20px 40px 20px",
+            height: "initial",
+        },
     },
     stepNumber: {
         fontWeight: 300
     },
     head: {
         color: theme.palette.primary.contrastText,
-        padding: "50px 0 10px 0"
+        padding: "50px 0 10px 0",
+        [theme.breakpoints.down(700)]: {
+            paddingTop: 20,
+        },
     },
     formStep: {
         display: "flex",
@@ -72,10 +86,10 @@ export const useStyles = makeStyles((theme) => ({
         margin: "10px 0",
     },
     formInput: {
-        maxWidth: 240,
+        width: 230,
     },
     formHead: {
-        marginBottom: 20,
+        margin: "20px 0",
         color: theme.palette.primary.contrastText
     },
     boxGiveThings: {
@@ -102,5 +116,18 @@ export const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        [theme.breakpoints.down(600)]: {
+            padding: "20px 20px 40px 20px",
+        },
+    },
+    confirmText: {
+        [theme.breakpoints.down(600)]: {
+            display: "none"
+        },
+    },
+    mobileConfirmText: {
+        [theme.breakpoints.up(600)]: {
+            display: "none"
+        },
     },
 }));
