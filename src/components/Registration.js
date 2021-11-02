@@ -12,6 +12,7 @@ import getFirebase from "./firebase";
 import {useHistory} from "react-router-dom";
 import CustomCardMedia from "./custom_elements/CustomCardMedia";
 import ReCAPTCHA from "react-google-recaptcha";
+import merge from "validator/es/lib/util/merge";
 
 const useStyles = makeStyles((theme) => ({
     mainBox: {
@@ -117,6 +118,11 @@ export default function Login () {
                 if (firebaseInstance) {
                     const user = await firebaseInstance.auth().createUserWithEmailAndPassword(regEmail.value, regPassword.value)
                     console.log("user", user);
+                    const userData = firebaseInstance
+                        .firestore()
+                        .collection(`${regEmail.value}`)
+                        .doc("userData");
+                    await userData.set({email: regEmail.value}, merge(true));
                     setNotSendError(false);
                     setVerified(false);
                     setVerifiedError(false);

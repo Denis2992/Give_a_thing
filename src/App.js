@@ -14,6 +14,7 @@ function App() {
     const [foundations, setFoundations] = useState([]);
     const [organizations, setOrganizations] = useState([]);
     const [local, setLocal] = useState([]);
+    const [sentForms, setSentForms] = useState([]);
 
 
     useEffect(() => {
@@ -91,11 +92,17 @@ function App() {
         };
 
         fetchLocal();
+
     }, []);
 
   return (
       <CurrentUserContext.Provider
-          value={{currentUser, setCurrentUser, foundations, organizations, local}}>
+          value={{
+              currentUser, setCurrentUser,
+              foundations, organizations, local,
+              sentForms, setSentForms
+          }}
+      >
           <HashRouter>
               <Switch>
                   <Route exact path={"/"} component={Home} />

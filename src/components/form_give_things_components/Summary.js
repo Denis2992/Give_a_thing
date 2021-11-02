@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import {useStyles} from "./styles";
 import {Box, Typography} from "@mui/material";
 import CustomCardMedia from "../custom_elements/CustomCardMedia";
@@ -8,6 +8,7 @@ import CustomTypography from "../custom_elements/CustomTypography";
 import FormButton from "../custom_elements/FormButton";
 import {FormGiveThingsContext} from "../FormGiveThings";
 import getFirebase from "../firebase";
+import {CurrentUserContext} from "../../App";
 
 export default function Summary () {
     const firebase = getFirebase();
@@ -35,17 +36,45 @@ export default function Summary () {
         organizationName, resetOrganizationName,
         handleNextStep, handlePreviousStep
     } = useContext(FormGiveThingsContext);
+    const {currentUser, sentForms, setSentForms} = useContext(CurrentUserContext);
 
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                if (!firebase) return;
+                const db = firebase.firestore();
+                const ref = db.collection(`${currentUser}`).doc("userData").collection("thingsToGive");
+
+                const docs = await ref.get();
+
+                let allForms = [];
+                docs.forEach((doc) => {
+                    const data = doc.data();
+                    allForms.push(data);
+                });
+                setSentForms(allForms);
+            } catch (error) {
+                console.log("error", error);
+            }
+        };
+
+        fetch();
+    },[currentUser, setSentForms, firebase]);
 
     const handleSendData = async () => {
+        const ids = sentForms?.map(el => el.id);
+
 
         if (firebase) {
             try {
                 const db = firebase.firestore()
-                const docRef = db.collection("thingsToGive").doc();
+                const docRef = db.collection(`${currentUser}`)
+                    .doc("userData")
+                    .collection("thingsToGive")
 
-                await docRef.set(
+                await docRef.doc().set(
                     {
+                        id: sentForms.length === 0 ? 1 : (Math.max(...ids) + 1),
                         info: {
                             bagsCount: bagsCount.value,
                             category: category,
