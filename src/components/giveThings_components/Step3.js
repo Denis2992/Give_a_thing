@@ -5,7 +5,7 @@ import CustomTypography from "../custom_elements/CustomTypography";
 import FormControl from "@mui/material/FormControl";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import FormButton from "../custom_elements/FormButton";
-import {FormGiveThingsContext} from "../FormGiveThings";
+import {FormGiveThingsContext} from "./FormGiveThings";
 import { styled } from '@mui/material/styles';
 
 const BpIcon = styled('span')(({ theme, data}) => ({

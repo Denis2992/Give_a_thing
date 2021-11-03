@@ -6,7 +6,7 @@ import Decoration from "../assets/Decoration.svg";
 import {makeStyles} from "@mui/styles";
 import CustomCardMedia from "./custom_elements/CustomCardMedia";
 import Contact from "./home_components/Contact";
-import FormGiveThings from "./FormGiveThings";
+import FormGiveThings from "./giveThings_components/FormGiveThings";
 import {theme} from "../index";
 import CustomTypography from "./custom_elements/CustomTypography";
 
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     contentBox: {
         display: "flex",
+        justifyContent: "space-between",
         color: theme.palette.secondary.main,
         [theme.breakpoints.down(1050)]: {
             justifyContent: "center",

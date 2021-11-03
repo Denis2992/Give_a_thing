@@ -1,13 +1,13 @@
 import React, {createContext, useState} from "react";
 import {Box} from "@mui/material";
-import useInput from "./hooks/useInput";
-import {useStyles} from "./form_give_things_components/styles";
-import Step1 from "./form_give_things_components/Step1";
-import Step2 from "./form_give_things_components/Step2";
-import Step3 from "./form_give_things_components/Step3";
-import Step4 from "./form_give_things_components/Step4";
-import Summary from "./form_give_things_components/Summary";
-import Confirmation from "./form_give_things_components/Confirmation";
+import useInput from "../hooks/useInput";
+import {useStyles} from "./styles";
+import Step1 from "./Step1";
+import Step2 from "./Step2";
+import Step3 from "./Step3";
+import Step4 from "./Step4";
+import Summary from "./Summary";
+import Confirmation from "./Confirmation";
 
 export const FormGiveThingsContext = createContext("");
 

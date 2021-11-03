@@ -6,14 +6,15 @@ import {
     Typography,
     Button,
     Drawer,
-    Divider
+    Divider, Tooltip
 } from "@mui/material";
-import { makeStyles } from '@mui/styles';
+import {makeStyles, withStyles} from '@mui/styles';
 import {useHistory} from "react-router-dom";
 import {Link} from "react-scroll";
 import {CurrentUserContext} from "../../App";
 import getFirebase from "../firebase";
 import MenuIcon from '@mui/icons-material/Menu';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 const useStyles = makeStyles((theme) => ({
     container : {
@@ -64,10 +65,13 @@ const useStyles = makeStyles((theme) => ({
     },
     userName: {
         color: theme.palette.primary.contrastText,
-        fontSize: 14,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
+
+        transform: "translate(0, -2px)"
+    },
+    manageAccountIcon: {
+        "&:hover": {
+            cursor: "pointer"
+        }
     },
     menu: {
         display: "flex",
@@ -92,6 +96,15 @@ const useStyles = makeStyles((theme) => ({
         }
     }
 }));
+
+const LightTooltip = withStyles((theme) => ({
+    tooltip: {
+        backgroundColor: `${theme.palette.secondary.main} !important`,
+        color: theme.palette.secondary.contrastText,
+        boxShadow: theme.shadows[1],
+        fontSize: "11px !important",
+    },
+}))(Tooltip);
 
 export default function Menu () {
     const classes = useStyles();
@@ -199,7 +212,6 @@ export default function Menu () {
     };
 
 
-
     return (
         <Box className={classes.container}>
             <Box className={classes.mobileMenuBox}>
@@ -219,10 +231,21 @@ export default function Menu () {
                         {menuList("top")}
                     </Drawer>
                 </Box>
+
                 <List className={classes.logRegList}>
                     {currentUser ? (
                         <>
-                            <Typography className={classes.userName}>Cześć, {currentUser}</Typography>
+                            <Typography className={classes.userName}
+                                        variant="body2"
+                                        style={{marginRight: 16}}
+
+                            >Cześć, {currentUser}</Typography>
+                            <LightTooltip title="Zarządzaj kontem" placement="bottom">
+                                <ManageAccountsIcon
+                                    className={classes.manageAccountIcon}
+                                    onClick={() => history.push("/panel")}
+                                />
+                            </LightTooltip>
                             <ListItem
                                 className={classes.logRegListItem}
                                 style={{width: 100}}
@@ -258,6 +281,7 @@ export default function Menu () {
                     )}
                 </List>
             </Box>
+
             <List className={classes.menu}>
                     <ListItem
                         className={classes.menuItem}

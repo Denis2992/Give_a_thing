@@ -6,7 +6,7 @@ import IconClothes from "../../assets/Icon-1.svg";
 import IconOnLocation from "../../assets/Icon-4.svg";
 import CustomTypography from "../custom_elements/CustomTypography";
 import FormButton from "../custom_elements/FormButton";
-import {FormGiveThingsContext} from "../FormGiveThings";
+import {FormGiveThingsContext} from "./FormGiveThings";
 import getFirebase from "../firebase";
 import {CurrentUserContext} from "../../App";
 

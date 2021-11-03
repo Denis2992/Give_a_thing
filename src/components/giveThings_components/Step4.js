@@ -3,7 +3,7 @@ import {useStyles} from "./styles";
 import {Alert, Box, TextField, Typography} from "@mui/material";
 import CustomTypography from "../custom_elements/CustomTypography";
 import FormButton from "../custom_elements/FormButton";
-import {FormGiveThingsContext} from "../FormGiveThings";
+import {FormGiveThingsContext} from "./FormGiveThings";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";

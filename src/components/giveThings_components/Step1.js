@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormButton from "../custom_elements/FormButton";
-import {FormGiveThingsContext} from "../FormGiveThings";
+import {FormGiveThingsContext} from "./FormGiveThings";
 import {styled} from "@mui/material/styles";
 import Radio from "@mui/material/Radio";
 import { useForm, Controller } from "react-hook-form";

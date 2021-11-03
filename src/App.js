@@ -6,7 +6,7 @@ import Registration from "./components/Registration";
 import getFirebase from "./components/firebase";
 import LogOut from "./components/LogOut";
 import GiveThings from "./components/GiveThings";
-
+import AdminPanel from "./components/AdminPanel";
 export const CurrentUserContext = createContext("");
 
 function App() {
@@ -95,7 +95,7 @@ function App() {
 
     }, []);
 
-  return (
+    return (
       <CurrentUserContext.Provider
           value={{
               currentUser, setCurrentUser,
@@ -110,6 +110,7 @@ function App() {
                   <Route path={"/rejestracja"} component={Registration} />
                   <Route path={"/wylogowano"} component={LogOut} />
                   <Route path={"/oddaj-rzeczy"} component={GiveThings}/>
+                  <Route path={"/panel"} component={AdminPanel}/>
               </Switch>
           </HashRouter>
       </CurrentUserContext.Provider>
