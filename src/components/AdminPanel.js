@@ -90,7 +90,7 @@ export default function PanelDrawer() {
                         >
                             <ListItem button>
                                 <ListItemIcon>
-                                    <Inventory2OutlinedIcon/>
+                                    <Inventory2OutlinedIcon style={{color: "orange"}}/>
                                 </ListItemIcon>
                                 Oddane rzeczy
                             </ListItem>
