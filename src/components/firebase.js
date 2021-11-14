@@ -1,12 +1,12 @@
 import firebase from "firebase/compat";
 
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
-    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID
+    apiKey: "AIzaSyCD6hpdDlsn2i-rSj91nn_AC-SHpItTdAE",
+    authDomain: "get-a-thing.firebaseapp.com",
+    projectId: "get-a-thing",
+    storageBucket: "get-a-thing.appspot.com",
+    messagingSenderId: "829681281057",
+    appId: "1:829681281057:web:e2769ee669841f87d79b60"
 };
 
 let instance;
